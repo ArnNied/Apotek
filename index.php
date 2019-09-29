@@ -119,7 +119,7 @@
                 </i>
             <h2>
         </div>
-        <?php include "footer.html" ?>
+        <?php include "footer.php" ?>
     </div>
 </body>
 
