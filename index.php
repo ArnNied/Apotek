@@ -1,3 +1,29 @@
+<?php
+
+include "function.php";
+
+if( isset($_POST['register']) ) {
+    if( $_POST['password'] != $_POST['cpassword'] ) {
+        if( register($_POST, 0) > 0 ) {
+            header("Location: produk.php");
+        } else {
+            echo "<script> alert('Terjadi kesalahan')";
+        }
+    } else {
+        echo "<script> alert('Konfirmasi password tidak sama') </script>";
+    }
+}
+
+if( isset($_POST['login']) ) {
+    if( login($_POST) > 0) {
+        header("Location: a_produk.php");
+    } else {
+        header("Location: produk.php");
+    }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,7 +54,7 @@
         <div class="row my-3">
 
             <div class="card-deck mx-auto text-center">
-            <div class="card shadow-sm pt-5">
+                <div class="card shadow-sm pt-5">
                     <img src="img/coins.png" class="mx-auto" width="200">
                     <div class="card-body">
                         <h4 class="card-title"><b>CHEAP</b></h4>
@@ -70,25 +96,14 @@
                     <div class="card p-3 shadow-none">
                         <div class="card-body">
                             <h2>REGISTRASI</h2>
-                            <form>
+                            <form action="" metho="post">
                                 <div class="form-group my-4 mx-auto">
-                                    <input class="form-control my-3" type="text" placeholder="E-Mail" name="username">
+                                    <input class="form-control my-3" type="text" placeholder="E-Mail" name="username" required>
                                     <input class="form-control my-3" type="password" placeholder="Password"
-                                        name="password">
+                                        name="password" required>
                                     <input class="form-control my-3" type="password" placeholder="Confirm Password"
-                                        name="cpassword">
-                                    <!-- <input class="form-control my-3" type="text" placeholder="Alamat" name="alamat">
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="customRadioInline1" name="customRadioInline1"
-                                            class="custom-control-input" value="<?= "laki-laki" ?>" checked>
-                                        <label class="custom-control-label" for="customRadioInline1">Laki-laki</label>
-                                    </div>
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="customRadioInline2" name="customRadioInline1"
-                                            class="custom-control-input" value="<?= "perempuan" ?>">
-                                        <label class="custom-control-label" for="customRadioInline2">Perempuan</label>
-                                    </div> -->
-                                    <button class="btn btn-primary mx-auto mt-3 w-100">DAFTAR</button>
+                                        name="cpassword" required>
+                                    <button class="btn btn-primary mx-auto mt-3 w-100" type="submit" name="register">DAFTAR</button>
                                 </div>
                             </form>
                         </div>
@@ -97,12 +112,12 @@
                     <div class="card p-3 shadow-none">
                         <div class="card-body">
                             <h2>LOGIN</h2>
-                            <form>
+                            <form action="" method="post">
                                 <div class="form-group my-4 mx-uto">
-                                    <input class="form-control my-3" type="text" placeholder="E-Mail" name="username">
+                                    <input class="form-control my-3" type="text" placeholder="E-Mail" name="email">
                                     <input class="form-control my-3" type="password" placeholder="Password"
                                         name="password">
-                                    <button class="btn btn-primary mx-auto mt-3 w-100">LOGIN</button>
+                                    <button class="btn btn-primary mx-auto mt-3 w-100" type="submit" name="login">LOGIN</button>
                                 </div>
                             </form>
                         </div>
@@ -117,7 +132,7 @@
                 <i>
                     “Medicine is not a science; it is empiricism founded on a network of blunders.” - Emmet Densmore
                 </i>
-            <h2>
+                <h2>
         </div>
         <?php include "footer.php" ?>
     </div>
