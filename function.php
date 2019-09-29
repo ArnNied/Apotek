@@ -53,7 +53,6 @@ function login($data) {
     $email = htmlspecialchars($data['email']);
     $password = htmlspecialchars($data['password']);
 
-
     $query = "SELECT * FROM user WHERE email = '$email' AND password = '$password'";
     mysqli_query($conn, $query);
     
@@ -61,11 +60,12 @@ function login($data) {
 
     foreach( $users as $user ) {
         if( $user['admin'] == 1 ) {
-            session_start();
             return 1;
-        } else {
-            session_start();
+        } else if( $user ['admin'] == 0) {
             return 0;
+        } else {
+            echo "<script> alert('Terjadi kesalahan') </script>";
+            break;
         }
     }
 }
@@ -80,7 +80,7 @@ function update_produk($id, $data) {
     $takaran = htmlspecialchars($data['takaran']);
     $harga = htmlspecialchars($data['harga']);
 
-    $query = "UPDATE `produk` SET nama_produk = '$nama_produk', gambar =' $gambar', deskripsi` = '$deskripsi', takaran = '$takaran', harga = '$harga' WHERE 'id' = $id";
+    $query = "UPDATE `produk` SET nama_produk = '$nama_produk', gambar =' $gambar', deskripsi = '$deskripsi', takaran = '$takaran', harga = '$harga' WHERE 'id' = $id";
     
     mysqli_query($conn, $query);
 }
