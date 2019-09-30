@@ -18,11 +18,16 @@ function tambah_produk($data) {
     global $conn;
 
     $nama_produk = htmlspecialchars($data['nama_produk']);
-    $gambar = htmlspecialchars($data['gambar']);
     $deskripsi = htmlspecialchars($data['deskripsi']);
     $takaran = htmlspecialchars($data['takaran']);
     $harga = htmlspecialchars($data['harga']);
     $qty = htmlspecialchars($data['qty']);
+
+    $gambar = upload();
+
+    if( !$gambar ) {
+        return false;
+    }
 
     $query = "INSERT INTO produk VALUES ('', '$nama_produk', '$gambar', '$deskripsi', '$takaran', '$harga', '$qty')";
     mysqli_query($conn, $query);
@@ -61,26 +66,25 @@ function login($data) {
     foreach( $users as $user ) {
         if( $user['admin'] == 1 ) {
             return 1;
-        } else if( $user ['admin'] == 0) {
-            return 0;
+        } else if( $user['admin'] == 0) {
+            return -1;
         } else {
-            echo "<script> alert('Terjadi kesalahan') </script>";
-            break;
+            return 0;
         }
     }
 }
 
-function update_produk($id, $data) {
+function update($id, $data) {
 
     global $conn;
 
     $nama_produk = htmlspecialchars($data['nama_produk']);
-    $gambar = htmlspecialchars($data['gambar']);
     $deskripsi = htmlspecialchars($data['deskripsi']);
     $takaran = htmlspecialchars($data['takaran']);
     $harga = htmlspecialchars($data['harga']);
+    $qty = htmlspecialchars($data['qty']);
 
-    $query = "UPDATE `produk` SET nama_produk = '$nama_produk', gambar =' $gambar', deskripsi = '$deskripsi', takaran = '$takaran', harga = '$harga' WHERE 'id' = $id";
+    $query = "UPDATE produk SET nama_produk = '$nama_produk', gambar = '$gambar', deskripsi = '$deskripsi', takaran = '$takaran', harga = '$harga', qty = '$qty' WHERE id = $id";
     
     mysqli_query($conn, $query);
 }
@@ -93,6 +97,41 @@ function delete($db, $data) {
 
 }
 
+function search($data) {
+    global $conn;
+
+    $query = "SELECT * FROM produk WHERE nama_produk LIKE '%$data%'";
+
+    return query($query);
+}
+
+function upload() {
+
+    $name = $_FILES['gambar']['name'];
+    $error = $_FILES['gambar']['error'];
+    $tmp = $_FILES['gambar']['tmp_name'];
+
+    if( $error === 4){
+
+    }
+
+    $ekstensi = ['jpg', 'jpeg', 'png'];
+    $gambar = explode('.', $name);
+    $gambar = end($gambar);
+
+    if( !in_array($gambar, $ekstensi) ) {
+        echo "<script> alert('File bukan gambar')";
+        return false;
+    }
+
+    $name = uniqid() . "." . $gambar;
+
+    move_uploaded_file($tmp, "img/".$name);
+
+    return $name;
+
+}
+
 function logout() {
 
     session_start();
@@ -100,5 +139,3 @@ function logout() {
     session_destroy();
 
 }
-
-?>

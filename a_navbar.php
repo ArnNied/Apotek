@@ -7,10 +7,10 @@
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="produk.php">Home</a>
+                <a class="nav-link" href="a_produk.php">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Profil</a>
+                <a class="nav-link" href="tambah_produk.php">+ Produk</a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0 ml-auto" action="" method="get">

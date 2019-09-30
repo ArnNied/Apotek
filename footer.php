@@ -1,4 +1,4 @@
-<footer class="row p-2 bg-dark text-light">
+<footer class="row p-2 no-gutters bg-dark text-light clear w-100">
 
     <div class="col-md-5 float-left mx-auto text-center">
         <ul class="list-unstyled">

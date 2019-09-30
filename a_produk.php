@@ -4,17 +4,27 @@ include "function.php";
 
 $items = query("SELECT * FROM produk");
 
-if( isset($_GET['detail']) ) {
-    $id = $_GET['detail'];
-    header("Location: detail.php?id=$id");
+if( isset($_POST['delete']) ) {
+    echo "<script> confirm('Anda yakin?') </script>";
+    if ( True ) {
+        delete("produk", $_POST);
+        echo "<script> alert('Data berhasil dihapus'); document.location.href = 'a_produk.php' </script>";
+    } else {
+        echo "<script> alert('Data tidak dihapus'); document.location.href = 'a_produk.php' </script>";
+    }
+}
+
+if( isset($_GET['update']) ) {
+    $id = $_GET['update'];
+    header("Location: a_update.php?id=$id");
 }
 
 if( isset($_GET['search']) ) {
     $items = search($_GET['keyword']);
 }
 ?>
- 
- <!DOCTYPE html>
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -46,7 +56,7 @@ if( isset($_GET['search']) ) {
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/js/mdb.min.js">
     </script>
 
-    <title>Apotek | Produk</title>
+    <title>Apotek | Produk Admin</title>
 </head>
 
 <body class="aqua-gradient">
@@ -59,7 +69,7 @@ if( isset($_GET['search']) ) {
                         <?php foreach( $items as $item ): ?>
                         <div class="card col-sm-12 col-md-4 col-lg-3 mt-4 mx-1 float-left" style="width: 18.2rem">
                             <form action="" method="get">
-                                <button class="btn btn-link p-0 shadow-sm" value="<?= $item['id'] ?>" name="detail">
+                                <button class="btn btn-link p-0 shadow-sm" value="<?= $item['id'] ?>" name="update">
                                     <img class="card-img-top" src="img/<?= $item['gambar'] ?>"
                                         alt="<?= $item['nama_produk'] ?>" style="width: 250px; height: 250px;">
                                     <div class="mask rgba-white-light"></div>
@@ -69,12 +79,12 @@ if( isset($_GET['search']) ) {
                                 <h4 class="card-title"><?= $item['nama_produk'] ?></h4>
                                 <ul class="list-unstyled">
                                     <li class="nav-item">Takaran: <?= $item['takaran'] ?></li>
-									<li class="nav-item">Harga: <?= $item['harga'] ?></li>
-									<li class="nav-item">QTY: <?= $item['qty'] ?></li>
+                                    <li class="nav-item">Harga: <?= $item['harga'] ?></li>
+                                    <li class="nav-item">QTY: <?= $item['qty'] ?></li>
                                 </ul>
                                 <form action="" method="post">
-                                    <button type="submit" class="btn btn-success btn-md mx-auto" name="cart"
-                                        value="<?= $item['id'] ?>">+ CART</button>
+                                    <button type="submit" class="btn btn-danger btn-md mx-auto" name="delete"
+                                        value="<?= $item['id'] ?>">DELETE</button>
                                 </form>
                             </div>
                         </div>

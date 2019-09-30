@@ -17,8 +17,10 @@ if( isset($_POST['register']) ) {
 if( isset($_POST['login']) ) {
     if( login($_POST) > 0) {
         header("Location: a_produk.php");
-    } else {
+    } else if( login($_POST) < 0 ) {
         header("Location: produk.php");
+    } else {
+        echo "<script> alert('Terjadi kesalahan') </script>";
     }
 }
 
@@ -96,13 +98,13 @@ if( isset($_POST['login']) ) {
                     <div class="card p-3 shadow-none">
                         <div class="card-body">
                             <h2>REGISTRASI</h2>
-                            <form action="" metho="post">
+                            <form action="" method="post">
                                 <div class="form-group my-4 mx-auto">
-                                    <input class="form-control my-3" type="text" placeholder="E-Mail" name="username" required>
+                                    <input class="form-control my-3" type="email" placeholder="E-Mail" name="username" autocomplete="off" required>
                                     <input class="form-control my-3" type="password" placeholder="Password"
-                                        name="password" required>
+                                        name="password" autocomplete="off" required>
                                     <input class="form-control my-3" type="password" placeholder="Confirm Password"
-                                        name="cpassword" required>
+                                        name="cpassword" autocomplete="off" required>
                                     <button class="btn btn-primary mx-auto mt-3 w-100" type="submit" name="register">DAFTAR</button>
                                 </div>
                             </form>
@@ -114,9 +116,9 @@ if( isset($_POST['login']) ) {
                             <h2>LOGIN</h2>
                             <form action="" method="post">
                                 <div class="form-group my-4 mx-uto">
-                                    <input class="form-control my-3" type="text" placeholder="E-Mail" name="email">
+                                    <input class="form-control my-3" type="email" placeholder="E-Mail" name="email" autocomplete="off" required>
                                     <input class="form-control my-3" type="password" placeholder="Password"
-                                        name="password">
+                                        name="password" autocomplete="off" required>
                                     <button class="btn btn-primary mx-auto mt-3 w-100" type="submit" name="login">LOGIN</button>
                                 </div>
                             </form>
@@ -134,8 +136,9 @@ if( isset($_POST['login']) ) {
                 </i>
                 <h2>
         </div>
-        <?php include "footer.php" ?>
+        
     </div>
+    <?php include "footer.php" ?>
 </body>
 
 </html>

@@ -1,0 +1,97 @@
+<?php
+
+include "function.php";
+
+$id = $_GET['id'];
+$items = query("SELECT * FROM produk WHERE id = $id");
+
+
+if( isset($_POST['update']) ) {
+    echo "<script> confirm('Anda yakin?') </script>";
+    if ( True ) {
+        update($id, $_POST);
+        echo "<script> alert('Data berhasil diubah'); document.location.href = 'a_update.php?id=$id' </script>";
+    } else {
+        header("Location: a_produk.php");
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Material Design Bootstrap -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css">
+
+    <title>Apotek | Update</title>
+</head>
+
+<body>
+
+</body>
+<?php include "a_navbar.php" ?>
+<div class="pt-3">
+    <div class="container-fluid mt-5 aqua-gradient">
+        <div class="row">
+            <div class="col-11 pb-3 mx-auto bg-white">
+                <div class="col-12 p-0">
+                    <?php foreach( $items as $item ): ?>
+                    <div class="card col-12 shadow-sm">
+                        <img class="card-img-top mx-auto" src="img/<?= $item['gambar'] ?>"
+                            alt="<?= $item['nama_produk'] ?>" style="width: 300px;">
+                        <div class="card-body text-center">
+                            <h4 class="card-title"><?= $item['nama_produk'] ?></h4>
+                            <ul class="list-unstyled">
+                                <li class="nav-item font-weight-bold">Deskripsi:</li>
+                                <li class="nav-item"><?= $item['deskripsi'] ?></li>
+                                <li class="nav-item font-weight-bold">Takaran:</li>
+                                <li class="nav-item"><?= $item['takaran'] ?></li>
+                                <li class="nav-item font-weight-bold">Harga:</li>
+                                <li class="nav-item"><?= $item['harga'] ?></li>
+                                <li class="nav-item font-weight-bold">QTY:</li>
+                                <li class="nav-item"><?= $item['qty'] ?></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 mt-5">
+                    <h2 class="text-center">UPDATE</h2>
+                    <form action="" method="post" enctype="multipart/form-data">
+                        <div class="form-group my-4 mx-auto">
+                            <input class="form-control my-3" type="text" placeholder="Nama Produk" name="nama_produk"
+                                value="<?= $item['nama_produk'] ?>" required>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="inputGroupFile01"
+                                    aria-describedby="inputGroupFileAddon01" name="gambar">
+                                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                            </div>
+                            <textarea class="form-control my-3" type="text" placeholder="Deskripsi" name="deskripsi"
+                                required><?= $item['deskripsi'] ?></textarea>
+                            <input class="form-control my-3" type="text" placeholder="Takaran" name="takaran"
+                                value="<?= $item['takaran'] ?>" required>
+                            <input class="form-control my-3" type="text" placeholder="Harga" name="harga"
+                                value="<?= $item['harga'] ?>" required>
+                            <input class="form-control my-3" type="number" placeholder="QTY" name="qty"
+                                value="<?= $item['qty'] ?>" required>
+                            <button class="btn btn-danger mx-auto mt-3 w-100" type="submit"
+                                name="update">UPDATE</button>
+                        </div>
+                    </form>
+                </div>
+                <?php endforeach ?>
+            </div>
+        </div>
+    </div>
+
+</div>
+<?php include "footer.php" ?>
+
+</html>
