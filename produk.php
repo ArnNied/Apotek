@@ -1,15 +1,10 @@
 <?php
 
-include "function.php";
+include 'system/conn.php';
 
 $items = query("SELECT * FROM produk");
 
-if( isset($_GET['detail']) ) {
-    $id = $_GET['detail'];
-    header("Location: detail.php?id=$id");
-}
-
-if( isset($_GET['search']) ) {
+if( isset($_GET['keyword']) ) {
     $items = search($_GET['keyword']);
 }
 ?>
@@ -50,7 +45,7 @@ if( isset($_GET['search']) ) {
 </head>
 
 <body class="aqua-gradient">
-    <?php include "a_navbar.php" ?>
+    <?php include "navbar.php" ?>
     <div class="pt-3">
         <div class="container-fluid mt-5">
             <div class="row">
@@ -58,8 +53,8 @@ if( isset($_GET['search']) ) {
                     <div class="col-12 p-0">
                         <?php foreach( $items as $item ): ?>
                         <div class="card col-sm-12 col-md-4 col-lg-3 mt-4 mx-1 float-left" style="width: 18.2rem">
-                            <form action="" method="get">
-                                <button class="btn btn-link p-0 shadow-sm" value="<?= $item['id'] ?>" name="detail">
+                            <form action="detail.php" method="get">
+                                <button class="btn btn-link p-0 shadow-sm" value="<?= $item['id'] ?>" name="id">
                                     <img class="card-img-top" src="img/<?= $item['gambar'] ?>"
                                         alt="<?= $item['nama_produk'] ?>" style="width: 250px; height: 250px;">
                                     <div class="mask rgba-white-light"></div>

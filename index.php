@@ -1,28 +1,6 @@
 <?php
 
-include "function.php";
-
-if( isset($_POST['register']) ) {
-    if( $_POST['password'] != $_POST['cpassword'] ) {
-        if( register($_POST, 0) > 0 ) {
-            header("Location: produk.php");
-        } else {
-            echo "<script> alert('Terjadi kesalahan')";
-        }
-    } else {
-        echo "<script> alert('Konfirmasi password tidak sama') </script>";
-    }
-}
-
-if( isset($_POST['login']) ) {
-    if( login($_POST) > 0) {
-        header("Location: a_produk.php");
-    } else if( login($_POST) < 0 ) {
-        header("Location: produk.php");
-    } else {
-        echo "<script> alert('Terjadi kesalahan') </script>";
-    }
-}
+include "system/conn.php";
 
 ?>
 
@@ -98,14 +76,14 @@ if( isset($_POST['login']) ) {
                     <div class="card p-3 shadow-none">
                         <div class="card-body">
                             <h2>REGISTRASI</h2>
-                            <form action="" method="post">
+                            <form action="system/register.php" method="post">
                                 <div class="form-group my-4 mx-auto">
-                                    <input class="form-control my-3" type="email" placeholder="E-Mail" name="username" autocomplete="off" required>
+                                    <input class="form-control my-3" type="email" placeholder="E-Mail" name="email" autocomplete="off" required>
                                     <input class="form-control my-3" type="password" placeholder="Password"
                                         name="password" autocomplete="off" required>
                                     <input class="form-control my-3" type="password" placeholder="Confirm Password"
                                         name="cpassword" autocomplete="off" required>
-                                    <button class="btn btn-primary mx-auto mt-3 w-100" type="submit" name="register">DAFTAR</button>
+                                    <button class="btn btn-primary mx-auto mt-3 w-100" type="submit">DAFTAR</button>
                                 </div>
                             </form>
                         </div>
@@ -114,7 +92,7 @@ if( isset($_POST['login']) ) {
                     <div class="card p-3 shadow-none">
                         <div class="card-body">
                             <h2>LOGIN</h2>
-                            <form action="" method="post">
+                            <form action="system/login.php" method="post">
                                 <div class="form-group my-4 mx-uto">
                                     <input class="form-control my-3" type="email" placeholder="E-Mail" name="email" autocomplete="off" required>
                                     <input class="form-control my-3" type="password" placeholder="Password"

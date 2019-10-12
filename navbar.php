@@ -13,9 +13,10 @@
                 <a class="nav-link" href="#">Profil</a>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0 ml-auto" action="" method="get">
+        <button class="btn btn-success btn-md ml-auto mr-5 px-5">CART</button>
+        <form class="form-inline my-2 my-lg-0" action="" method="get">
             <input class="form-control" type="search" placeholder="Search" aria-label="Search" name="keyword">
-            <button class="btn btn-outline-white btn-md my-2 my-sm-0 ml-3" type="submit" name="search" autocomplete="off">Search</button>
+            <button class="btn btn-outline-white btn-md my-2 my-sm-0 ml-3" type="submit" autocomplete="off">Search</button>
         </form>
     </div>
 </nav>

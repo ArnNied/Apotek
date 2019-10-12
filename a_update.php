@@ -1,20 +1,10 @@
 <?php
 
-include "function.php";
+include "system/conn.php";
 
 $id = $_GET['id'];
 $items = query("SELECT * FROM produk WHERE id = $id");
 
-
-if( isset($_POST['update']) ) {
-    echo "<script> confirm('Anda yakin?') </script>";
-    if ( True ) {
-        update($id, $_POST);
-        echo "<script> alert('Data berhasil diubah'); document.location.href = 'a_update.php?id=$id' </script>";
-    } else {
-        header("Location: a_produk.php");
-    }
-}
 ?>
 
 <!DOCTYPE html>
@@ -64,7 +54,7 @@ if( isset($_POST['update']) ) {
                 </div>
                 <div class="col-12 mt-5">
                     <h2 class="text-center">UPDATE</h2>
-                    <form action="" method="post" enctype="multipart/form-data">
+                    <form action="system/update.php" method="post" enctype="multipart/form-data">
                         <div class="form-group my-4 mx-auto">
                             <input class="form-control my-3" type="text" placeholder="Nama Produk" name="nama_produk"
                                 value="<?= $item['nama_produk'] ?>" required>
@@ -73,16 +63,16 @@ if( isset($_POST['update']) ) {
                                     aria-describedby="inputGroupFileAddon01" name="gambar">
                                 <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                             </div>
-                            <textarea class="form-control my-3" type="text" placeholder="Deskripsi" name="deskripsi"
+                            <textarea class="form-control my-3" type="text" placeholder="Deskripsi" name="deskripsi" autocomplete="off"
                                 required><?= $item['deskripsi'] ?></textarea>
-                            <input class="form-control my-3" type="text" placeholder="Takaran" name="takaran"
+                            <input class="form-control my-3" type="text" placeholder="Takaran" name="takaran" autocomplete="off"
                                 value="<?= $item['takaran'] ?>" required>
-                            <input class="form-control my-3" type="text" placeholder="Harga" name="harga"
+                            <input class="form-control my-3" type="text" placeholder="Harga" name="harga" autocomplete="off"
                                 value="<?= $item['harga'] ?>" required>
-                            <input class="form-control my-3" type="number" placeholder="QTY" name="qty"
+                            <input class="form-control my-3" type="number" placeholder="QTY" name="qty" autocomplete="off"
                                 value="<?= $item['qty'] ?>" required>
                             <button class="btn btn-danger mx-auto mt-3 w-100" type="submit"
-                                name="update">UPDATE</button>
+                                name="update" value="<?= $item['id'] ?>">UPDATE</button>
                         </div>
                     </form>
                 </div>

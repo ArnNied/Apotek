@@ -1,6 +1,6 @@
 <?php
 
-include "function.php";
+include "system/conn.php.php";
 
 $id = $_GET['id'];
 $items = query("SELECT * FROM produk WHERE id = $id");
@@ -27,7 +27,7 @@ $items = query("SELECT * FROM produk WHERE id = $id");
 <body>
 
 </body>
-<?php include "a_navbar.php" ?>
+<?php include "navbar.php" ?>
 <div class="pt-3">
     <div class="container-fluid mt-5 aqua-gradient">
         <div class="row">

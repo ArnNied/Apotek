@@ -1,27 +1,13 @@
 <?php
 
-include "function.php";
+include 'system/conn.php';
 
 $items = query("SELECT * FROM produk");
 
-if( isset($_POST['delete']) ) {
-    echo "<script> confirm('Anda yakin?') </script>";
-    if ( True ) {
-        delete("produk", $_POST);
-        echo "<script> alert('Data berhasil dihapus'); document.location.href = 'a_produk.php' </script>";
-    } else {
-        echo "<script> alert('Data tidak dihapus'); document.location.href = 'a_produk.php' </script>";
-    }
-}
-
-if( isset($_GET['update']) ) {
-    $id = $_GET['update'];
-    header("Location: a_update.php?id=$id");
-}
-
-if( isset($_GET['search']) ) {
+if( isset($_GET['keyword']) ) {
     $items = search($_GET['keyword']);
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -68,13 +54,12 @@ if( isset($_GET['search']) ) {
                     <div class="col-12 p-0">
                         <?php foreach( $items as $item ): ?>
                         <div class="card col-sm-12 col-md-4 col-lg-3 mt-4 mx-1 float-left" style="width: 18.2rem">
-                            <form action="" method="get">
-                                <button class="btn btn-link p-0 shadow-sm" value="<?= $item['id'] ?>" name="update">
-                                    <img class="card-img-top" src="img/<?= $item['gambar'] ?>"
-                                        alt="<?= $item['nama_produk'] ?>" style="width: 250px; height: 250px;">
-                                    <div class="mask rgba-white-light"></div>
-                                </button>
-                            </form>
+                            <a class="btn btn-link p-0 shadow-sm" href="a_update.php?id=<?= $item['id'] ?>"
+                                name="update">
+                                <img class="card-img-top" src="img/<?= $item['gambar'] ?>"
+                                    alt="<?= $item['nama_produk'] ?>" style="width: 250px; height: 250px;">
+                                <div class="mask rgba-white-light"></div>
+                            </a>
                             <div class="card-body">
                                 <h4 class="card-title"><?= $item['nama_produk'] ?></h4>
                                 <ul class="list-unstyled">
@@ -82,9 +67,9 @@ if( isset($_GET['search']) ) {
                                     <li class="nav-item">Harga: <?= $item['harga'] ?></li>
                                     <li class="nav-item">QTY: <?= $item['qty'] ?></li>
                                 </ul>
-                                <form action="" method="post">
-                                    <button type="submit" class="btn btn-danger btn-md mx-auto" name="delete"
-                                        value="<?= $item['id'] ?>">DELETE</button>
+                                <form action="system/delete.php" method="get">
+                                    <button type="submit" class="btn btn-danger btn-md mx-auto"
+                                        name="id" value="<?= $item['id'] ?>" onclick="return confirm('Anda yakin?')">DELETE</button>
                                 </form>
                             </div>
                         </div>
