@@ -41,6 +41,7 @@ $query = "UPDATE produk SET nama_produk = ?, gambar = ?, deskripsi = ?, takaran 
 $stmt = $conn->prepare($query);
 $stmt->bind_param("sssssii", $nama_produk, $stringGambar, $deskripsi, $takaran, $harga, $qty, $id);
 $stmt->execute();
+$stmt->close();
 
 header('Location: ../a_produk.php')
 ?>

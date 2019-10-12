@@ -4,13 +4,22 @@ require 'conn.php';
 
 global $conn;
 
-$email = htmlspecialchars($_POST['email']);
-$password = htmlspecialchars($_POST['password']);
-$cpassword = htmlspecialchars($_POST['cpassword']);
+$email = mysqli_real_escape_string($conn, htmlspecialchars($_POST['email']));
+$password = mysqli_real_escape_string($conn, htmlspecialchars($_POST['password']));
+$cpassword = mysqli_real_escape_string($conn, htmlspecialchars($_POST['cpassword']));
 
 if($password != $cpassword) {
     echo "<script> alert('Confirm password is blank or false'); document.location.href = '../index.php' </script>";
+}
+
+if(strlen($password) > 72){
+    echo "<script> alert('Password must be 72 or less characters'); document.location.href = '../index.php' </script>";
     die;
+} else if(strlen($password) < 8) {
+    echo "<script> alert('Password must be 8 or more characters'); document.location.href = '../index.php' </script>";
+    die;
+} else {
+    $password = password_hash($password, PASSWORD_DEFAULT);
 }
 
 $query = "SELECT * FROM users WHERE email = '$email'";
@@ -29,6 +38,8 @@ mysqli_query($conn, $query);
 // }
 
 // $result = $stmt->num_rows
+
+// var_dump($password); die;
 
 if(mysqli_affected_rows($conn) > 0) {
     echo "<script> alert('Email already registered'); document.location.href = '../index.php' </script>";

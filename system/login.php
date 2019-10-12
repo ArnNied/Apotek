@@ -4,8 +4,8 @@ require 'conn.php';
 
 global $conn;
 
-$email = htmlspecialchars($_POST['email']);
-$password = htmlspecialchars($_POST['password']);
+$email = mysqli_real_escape_string($conn, htmlspecialchars($_POST['email']));
+$password = mysqli_real_escape_string($conn, htmlspecialchars($_POST['password']));
 
 $query = "SELECT * FROM users WHERE email = '$email'";
 mysqli_query($conn, $query);
@@ -17,10 +17,11 @@ mysqli_query($conn, $query);
 
 if(mysqli_affected_rows($conn) > 0) {
     $users = query($query);
+
     foreach($users as $user) {
-        if($password == $user['password'] && $user['role'] == 1) {
+        if(password_verify($password, $user['password']) && $user['role'] == 1) {
             header("Location: ../a_produk.php");
-        } else if($password == $user['password'] && $user['role'] == 0) {
+        } else if(password_verify($password, $user['password']) && $user['role'] == 0) {
             header("Location: ../produk.php");
         }
     }    

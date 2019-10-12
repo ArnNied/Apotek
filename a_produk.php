@@ -53,7 +53,7 @@ if( isset($_GET['keyword']) ) {
                 <div class="col-11 pb-3 mx-auto bg-white">
                     <div class="col-12 p-0">
                         <?php foreach( $items as $item ): ?>
-                        <div class="card col-sm-12 col-md-4 col-lg-3 mt-4 mx-1 float-left" style="width: 18.2rem">
+                        <div class="card col-sm-12 col-md-4 col-lg-3 mt-4 mx-1 float-left" style="width: 18.2rem;">
                             <a class="btn btn-link p-0 shadow-sm" href="a_update.php?id=<?= $item['id'] ?>"
                                 name="update">
                                 <img class="card-img-top" src="img/<?= $item['gambar'] ?>"
