@@ -1,6 +1,6 @@
 <?php
 
-include "system/conn.php";
+require "system/conn.php";
 
 $id = $_GET['id'];
 $items = query("SELECT * FROM produk WHERE id = $id");

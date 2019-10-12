@@ -3,7 +3,7 @@
 $conn = new mysqli('localhost', 'root', '', 'apotek_ol');
 
 if($conn->connect_error){
-    echo "Error: ".$conn->connect_error;
+    echo "Error: ".$conn->connect_error; die;
 }
 
 function query($query) {
