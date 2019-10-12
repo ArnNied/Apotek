@@ -26,7 +26,7 @@ if(!in_array(strtolower($extGambar), $allowedExt)) {
     echo "<script> alert('Yang anda upload bukan gambar'); document.location.href = ../a_produk.php </script>";
 }
 
-$stringGambar = uniqid().".".$extGambar;
+$stringGambar = random_str(16).".".$extGambar;
 // var_dump($stringGambar); die;
 move_uploaded_file($tmpName, '../img/'.$stringGambar);
 
