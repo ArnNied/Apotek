@@ -4,6 +4,7 @@ require 'conn.php';
 
 global $conn;
 
+session_start();
 $email = mysqli_real_escape_string($conn, htmlspecialchars($_POST['email']));
 $password = mysqli_real_escape_string($conn, htmlspecialchars($_POST['password']));
 
@@ -16,15 +17,18 @@ mysqli_query($conn, $query);
 // $stmt->execute();
 
 if(mysqli_affected_rows($conn) > 0) {
-    $users = query($query);
+    $user = mysqli_fetch_assoc(mysqli_query($conn, $query));
 
-    foreach($users as $user) {
-        if(password_verify($password, $user['password']) && $user['role'] == 1) {
-            header("Location: ../a_produk.php");
-        } else if(password_verify($password, $user['password']) && $user['role'] == 0) {
-            header("Location: ../produk.php");
-        }
-    }    
+    if(password_verify($password, $user['password']) && $user['role'] == 1) {
+        $_SESSION['email'] = $email;
+        $_SESSION['role'] = $user['role'];
+        header("Location: ../a_produk.php");
+    } else if(password_verify($password, $user['password']) && $user['role'] == 0) {
+        $_SESSION['email'] = $email;
+        $_SESSION['role'] = $user['role'];
+        header("Location: ../produk.php");
+    }
+
 } else {
     echo "<script> alert('User not found!'); document.location.href = '../index.php' </script>";
 }

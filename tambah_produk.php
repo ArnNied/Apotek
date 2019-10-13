@@ -2,6 +2,14 @@
 
 require "system/conn.php";
 
+session_start();
+
+if(!isset($_SESSION['email'])) {
+    header('Location: index.php');
+} else if($_SESSION['role'] != 1) {
+    header('Location: produk.php');
+}
+
 ?>
 
 

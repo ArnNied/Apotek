@@ -1,7 +1,12 @@
 <?php
 
-require "system/conn.php";
+require 'system/conn.php';
 
+session_start();
+
+if(isset($_SESSION['email'])) {
+    header('Location: produk.php');
+}
 ?>
 
 <!DOCTYPE html>

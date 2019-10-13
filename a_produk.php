@@ -2,6 +2,14 @@
 
 require 'system/conn.php';
 
+session_start();
+
+if(!isset($_SESSION['email'])) {
+    header('Location: index.php');
+} else if($_SESSION['role'] != 1) {
+    header('Location: produk.php');
+}
+
 $items = query("SELECT * FROM produk");
 
 if( isset($_GET['keyword']) ) {
@@ -48,9 +56,17 @@ if( isset($_GET['keyword']) ) {
 <body class="aqua-gradient">
     <?php include "a_navbar.php" ?>
     <div class="pt-3">
-        <div class="container-fluid mt-5">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-11 pb-3 mx-auto bg-white">
+                    <div class="col-12 mt-4">
+                        <form class="form-inline my-2 my-lg-0" action="" method="get">
+                            <input class="form-control ml-auto" type="search" placeholder="Search" aria-label="Search"
+                                name="keyword">
+                            <button class="btn btn-primary btn-md my-2 my-sm-0 ml-3" type="submit"
+                                autocomplete="off">Search</button>
+                        </form>
+                    </div>
                     <div class="col-12 p-0">
                         <?php foreach( $items as $item ): ?>
                         <div class="card col-sm-12 col-md-4 col-lg-3 mt-4 mx-1 float-left" style="width: 18.2rem;">
@@ -68,8 +84,9 @@ if( isset($_GET['keyword']) ) {
                                     <li class="nav-item">QTY: <?= $item['qty'] ?></li>
                                 </ul>
                                 <form action="system/delete.php" method="get">
-                                    <button type="submit" class="btn btn-danger btn-md mx-auto"
-                                        name="id" value="<?= $item['id'] ?>" onclick="return confirm('Anda yakin?')">DELETE</button>
+                                    <button type="submit" class="btn btn-danger btn-md mx-auto" name="id"
+                                        value="<?= $item['id'] ?>"
+                                        onclick="return confirm('Are you sure?')">DELETE</button>
                                 </form>
                             </div>
                         </div>

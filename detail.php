@@ -2,6 +2,12 @@
 
 require "system/conn.php";
 
+session_start();
+
+if(!isset($_SESSION['email'])) {
+    header('Location: index.php');
+}
+
 $id = $_GET['id'];
 $items = query("SELECT * FROM produk WHERE id = $id");
 

@@ -2,6 +2,13 @@
 
 require 'conn.php';
 
+session_start();
+
+if($_SESSION['role'] != 1) {
+    header('Location: produk.php');
+    die;
+}
+
 global $conn;
 
 $nama_produk = htmlspecialchars($_POST['nama_produk']);

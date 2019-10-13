@@ -2,14 +2,20 @@
 
 require 'system/conn.php';
 
+session_start();
+
+if(!isset($_SESSION['email'])) {
+    header('Location: index.php');
+}
+
 $items = query("SELECT * FROM produk");
 
 if( isset($_GET['keyword']) ) {
     $items = search($_GET['keyword']);
 }
 ?>
- 
- <!DOCTYPE html>
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -50,6 +56,14 @@ if( isset($_GET['keyword']) ) {
         <div class="container-fluid mt-5">
             <div class="row">
                 <div class="col-11 pb-3 mx-auto bg-white">
+                    <div class="col-12 mt-4">
+                        <form class="form-inline my-2 my-lg-0" action="" method="get">
+                            <input class="form-control ml-auto" type="search" placeholder="Search" aria-label="Search"
+                                name="keyword">
+                            <button class="btn btn-primary btn-md my-2 my-sm-0 ml-3" type="submit"
+                                autocomplete="off">Search</button>
+                        </form>
+                    </div>
                     <div class="col-12 p-0">
                         <?php foreach( $items as $item ): ?>
                         <div class="card col-sm-12 col-md-4 col-lg-3 mt-4 mx-1 float-left" style="width: 18.2rem">
@@ -64,8 +78,8 @@ if( isset($_GET['keyword']) ) {
                                 <h4 class="card-title"><?= $item['nama_produk'] ?></h4>
                                 <ul class="list-unstyled">
                                     <li class="nav-item">Takaran: <?= $item['takaran'] ?></li>
-									<li class="nav-item">Harga: <?= $item['harga'] ?></li>
-									<li class="nav-item">QTY: <?= $item['qty'] ?></li>
+                                    <li class="nav-item">Harga: <?= $item['harga'] ?></li>
+                                    <li class="nav-item">QTY: <?= $item['qty'] ?></li>
                                 </ul>
                                 <form action="" method="post">
                                     <button type="submit" class="btn btn-success btn-md mx-auto" name="cart"

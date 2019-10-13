@@ -1,3 +1,15 @@
+<?php
+
+session_start();
+
+if(!isset($_SESSION['email'])) {
+    header('Location: index.php');
+} else if($_SESSION['role'] != 1) {
+    header('Location: produk.php');
+}
+
+?>
+
 <nav class="navbar navbar-expand-lg navbar-dark blue fixed-top">
     <img src="img/Apotek Logo.png" class="navbar-brand" width=50>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
@@ -12,11 +24,10 @@
             <li class="nav-item">
                 <a class="nav-link" href="tambah_produk.php">+ Produk</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="system/logout.php">Logout</a>
+            </li>
         </ul>
         <button class="btn btn-success btn-md ml-auto mr-5 px-5">CART</button>
-        <form class="form-inline my-2 my-lg-0" action="" method="get">
-            <input class="form-control" type="search" placeholder="Search" aria-label="Search" name="keyword">
-            <button class="btn btn-outline-white btn-md my-2 my-sm-0 ml-3" type="submit" autocomplete="off">Search</button>
-        </form>
     </div>
 </nav>
