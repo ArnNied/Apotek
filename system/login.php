@@ -4,7 +4,6 @@ require 'conn.php';
 
 global $conn;
 
-session_start();
 $email = mysqli_real_escape_string($conn, htmlspecialchars($_POST['email']));
 $password = mysqli_real_escape_string($conn, htmlspecialchars($_POST['password']));
 
@@ -17,6 +16,7 @@ mysqli_query($conn, $query);
 // $stmt->execute();
 
 if(mysqli_affected_rows($conn) > 0) {
+    session_start();
     $user = mysqli_fetch_assoc(mysqli_query($conn, $query));
 
     if(password_verify($password, $user['password']) && $user['role'] == 1) {
@@ -27,6 +27,8 @@ if(mysqli_affected_rows($conn) > 0) {
         $_SESSION['email'] = $email;
         $_SESSION['role'] = $user['role'];
         header("Location: ../produk.php");
+    } else {
+        echo "<script> alert('Incorrect password'); document.location.href = '../profil.php' </script>";
     }
 
 } else {

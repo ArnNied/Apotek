@@ -4,8 +4,11 @@ require 'conn.php';
 
 session_start();
 
-if($_SESSION['role'] != 1) {
-    header('Location: produk.php');
+if(!isset($_SESSION['email'])) {
+    header('Location: ../produk.php');
+    die;
+} else if($_SESSION['role'] != 1) {
+    header('Location: ../produk.php');
     die;
 }
 
@@ -19,11 +22,9 @@ $harga = htmlspecialchars($_POST['harga']);
 $qty = htmlspecialchars($_POST['qty']);
 
 $query = "SELECT gambar FROM produk WHERE id = '$id'";
-$cur_gambar = query($query);
+$cur_gambar = mysqli_fetch_assoc(mysqli_query($conn, $query));
 if($_FILES['gambar']['error'] == 4) {
-    foreach($cur_gambar as $a) {
-        $stringGambar = $a['gambar'];
-    }
+    $stringGambar = $cur_gambar['gambar'];
 } else {
     $namaGambar = $_FILES['gambar']['name'];
     $error = $_FILES['gambar']['error'];

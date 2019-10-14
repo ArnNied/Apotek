@@ -58,8 +58,8 @@ $user = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM users WHERE email 
                     <div class="row">
                         <div class="col-6 p-0">
                             <div class="card col-12 mt-5 shadow-none">
-                                <img class="card-img-top mx-auto" src="img/<?= $user['gambar'] ?>"
-                                    alt="<?= $user['nama'] ?>" style="width: 300px;">
+                                <img class="card-img-top mx-auto" src="img/users/<?= $user['gambar'] ?>"
+                                    alt="<?= $user['nama'] ?>" style="width: 300px; height: 300px;">
                                 <div class="card-body">
                                     <h4 class="card-title text-center"><?= $user['nama'] ?></h4>
                                     <ul class="list-unstyled">
@@ -76,14 +76,14 @@ $user = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM users WHERE email 
                             </div>
                         </div>
                         <div class="col-6 mt-5">
-                            <h2 class="text-center">UPDATE</h2>
-                            <form action="system/update.php" method="post" enctype="multipart/form-data">
+                            <h2 class="text-center">UPDATE BIO</h2>
+                            <form action="system/profil_update.php" method="post" enctype="multipart/form-data">
                                 <div class="form-group my-4 mx-auto">
                                     <input class="form-control my-3" type="text" placeholder="Nama Lengkap" name="nama"
-                                        value="<?= $user['nama'] ?>" required>
+                                        value="<?= $user['nama'] ?>">
 
                                     <input class="form-control my-3" type="number" placeholder="Umur" name="umur"
-                                        autocomplete="off" value="<?= $user['umur'] ?>" required>
+                                        autocomplete="off" value="<?= $user['umur'] ?>">
 
                                     <div class="custom-control custom-radio custom-control-inline">
                                         <input type="radio" class="custom-control-input" id="defaultInline1"
@@ -99,14 +99,27 @@ $user = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM users WHERE email 
                                     </div>
 
                                     <input class="form-control my-3" type="text" placeholder="Alamat" name="alamat"
-                                        autocomplete="off" value="<?= $user['alamat'] ?>" required>
-                                    <input class="form-control my-3" type="text" placeholder="E-mail" name="email"
-                                        autocomplete="off" value="<?= $user['email'] ?>" required>
+                                        autocomplete="off" value="<?= $user['alamat'] ?>">
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" id="inputGroupFile01"
                                             aria-describedby="inputGroupFileAddon01" name="gambar">
                                         <label class="custom-file-label" for="inputGroupFile01">Choose image</label>
                                     </div>
+                                    <button class="btn btn-danger mx-auto mt-3 w-100" type="submit" name="update"
+                                        value="<?= $user['id'] ?>">UPDATE</button>
+                                </div>
+                            </form>
+                            <h3 class="text-center">UPDATE CREDENTIALS</h3>
+                            <form action="system/cred_update.php" method="post">
+                                <div class="form-group my-4 mx-auto">
+                                    <input class="form-control my-3" type="text" placeholder="E-mail" name="email"
+                                        autocomplete="off" value="<?= $user['email'] ?>" required>
+                                    <input class="form-control my-3" type="password" placeholder="Current password"
+                                        name="cur_password" autocomplete="off" required>
+                                    <input class="form-control my-3" type="password"
+                                        placeholder="New password (Optional)" name="new_password" autocomplete="off">
+                                    <input class="form-control my-3" type="password" placeholder="Confirm new password"
+                                        name="cnew_password" autocomplete="off">
                                     <button class="btn btn-danger mx-auto mt-3 w-100" type="submit" name="update"
                                         value="<?= $user['id'] ?>">UPDATE</button>
                                 </div>

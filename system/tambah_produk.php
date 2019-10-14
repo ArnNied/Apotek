@@ -4,8 +4,11 @@ require 'conn.php';
 
 session_start();
 
-if($_SESSION['role'] != 1) {
-    header('Location: produk.php');
+if(!isset($_SESSION['email'])) {
+    header('Location: ../produk.php');
+    die;
+} else if($_SESSION['role'] != 1) {
+    header('Location: ../produk.php');
     die;
 }
 
@@ -22,7 +25,7 @@ $error = $_FILES['gambar']['error'];
 $tmpName = $_FILES['gambar']['tmp_name'];
 
 if($error == 4) {
-    echo "<script> alert('Pilih gambar terlebih dahulu'); document.location.href = ../a_produk.php </script>";
+    echo "<script> alert('Pilih gambar terlebih dahulu'); document.location.href = '../a_produk.php' </script>";
 }
 
 $allowedExt = ['jpg', 'jpeg', 'png'];
@@ -30,12 +33,12 @@ $extGambar = explode(".", $namaGambar);
 $extGambar = end($extGambar);
 
 if(!in_array(strtolower($extGambar), $allowedExt)) {
-    echo "<script> alert('Yang anda upload bukan gambar'); document.location.href = ../a_produk.php </script>";
+    echo "<script> alert('Yang anda upload bukan gambar'); document.location.href = '../a_produk.php' </script>";
 }
 
 $stringGambar = random_str(16).".".$extGambar;
 // var_dump($stringGambar); die;
-move_uploaded_file($tmpName, '../img/'.$stringGambar);
+move_uploaded_file($tmpName, '../img/produk/'.$stringGambar);
 
 $query = "INSERT INTO produk (nama_produk, gambar, deskripsi, takaran, harga, qty) VALUES (?,?,?,?,?,?)";
 $stmt = $conn->prepare($query);

@@ -4,8 +4,11 @@ require 'conn.php';
 
 session_start();
 
-if($_SESSION['role'] !== 1) {
-    header('Location: produk.php');
+if(!isset($_SESSION['email'])) {
+    header('Location: ../produk.php');
+    die;
+} else if($_SESSION['role'] != 1) {
+    header('Location: ../produk.php');
     die;
 }
 
