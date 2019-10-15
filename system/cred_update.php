@@ -17,10 +17,23 @@ if(password_verify($cur_password, $user['password'])) {
 
     // Email change
     if($new_email != $user['email']) {
+        $allowedEmail = ['yahoo.com',
+                        'gmail.com',
+                        'yahoo.co.id',
+                        'gmail.co.id'
+                    ];
+        $email_ver = explode('@', $new_email);
+        $email_ver = end($email_ver);
+
+        if(!in_array($email_ver, $allowedEmail)) {
+            echo "<script> alert('Please enter a valid email'); document.location.href = '../index.php' </script>";
+            die;
+        }
 
         // Email availability check
         $query = "SELECT * FROM users WHERE email = '$new_email'";
-        $result = mysqli_query($conn, $query);
+        mysqli_query($conn, $query);
+        
         if(mysqli_affected_rows($conn) > 0) {
             echo "<script> alert('Email already registered! Please use another email'); document.location.href = '../profil.php' </script>";
             die;

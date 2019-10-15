@@ -33,8 +33,8 @@ if(!isset($_SESSION['email'])) {
 <body class="aqua-gradient">
     <?php include "a_navbar.php" ?>
     <div class="container-fluid">
-        <div class="row pt-5">
-            <div class="col-11 mx-auto mt-3 bg-white">
+        <div class="row">
+            <div class="col-11 mx-auto bg-white">
                 <form action="system/tambah_produk.php" method="post" class="pt-5" enctype="multipart/form-data">
                     <div class="form-group mx-auto">
                         <h1 class="mb-5 text-center"><b>TAMBAH PRODUK</b></h1>
@@ -43,7 +43,7 @@ if(!isset($_SESSION['email'])) {
                         <div class="custom-file">
                             <input type="file" class="custom-file-input" id="inputGroupFile01"
                                 aria-describedby="inputGroupFileAddon01" name="gambar">
-                            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                            <label class="custom-file-label" for="inputGroupFile01">Choose image</label>
                         </div>
                         <textarea class="form-control my-3" type="text" placeholder="Deskripsi" name="deskripsi"
                             required></textarea>
@@ -55,8 +55,8 @@ if(!isset($_SESSION['email'])) {
                 </form>
             </div>
         </div>
-        <?php include "footer.php" ?>
     </div>
+    <?php include "footer.php" ?>
 </body>
 
 </html>

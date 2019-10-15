@@ -114,12 +114,12 @@ $user = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM users WHERE email 
                                 <div class="form-group my-4 mx-auto">
                                     <input class="form-control my-3" type="text" placeholder="E-mail" name="email"
                                         autocomplete="off" value="<?= $user['email'] ?>" required>
-                                    <input class="form-control my-3" type="password" placeholder="Current password"
-                                        name="cur_password" autocomplete="off" required>
                                     <input class="form-control my-3" type="password"
                                         placeholder="New password (Optional)" name="new_password" autocomplete="off">
                                     <input class="form-control my-3" type="password" placeholder="Confirm new password"
                                         name="cnew_password" autocomplete="off">
+                                        <input class="form-control my-3" type="password" placeholder="Current password (Required)"
+                                        name="cur_password" autocomplete="off" required>
                                     <button class="btn btn-danger mx-auto mt-3 w-100" type="submit" name="update"
                                         value="<?= $user['id'] ?>">UPDATE</button>
                                 </div>

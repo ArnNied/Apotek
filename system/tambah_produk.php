@@ -46,6 +46,7 @@ $stmt->bind_param("sssssi", $nama_produk, $stringGambar, $deskripsi, $takaran, $
 $stmt->execute();
 // mysqli_query($conn, $query);
 
+var_dump(mysqli_affected_rows($conn)); die;
 if(mysqli_affected_rows($conn) > 0) {
     echo "<script> alert('Data berhasil ditambahkan'); document.location.href = '../a_produk.php' </script>";
 } else {

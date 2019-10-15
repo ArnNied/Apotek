@@ -17,7 +17,7 @@ $email_ver = explode('@', $email);
 $email_ver = end($email_ver);
 
 if(!in_array($email_ver, $allowedEmail)) {
-    echo "<script> alert('Please eneter a valid email'); document.location.href = '../index.php' </script>";
+    echo "<script> alert('Please enter a valid email'); document.location.href = '../index.php' </script>";
     die;
 }
 
