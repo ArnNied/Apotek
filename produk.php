@@ -50,10 +50,10 @@ if( isset($_GET['keyword']) ) {
     <title>Apotek | Produk</title>
 </head>
 
-<body class="aqua-gradient">
+<body>
     <?php include "navbar.php" ?>
     <div class="pt-3">
-        <div class="container-fluid mt-5">
+        <div class="container-fluid mt-5 aqua-gradient">
             <div class="row">
                 <div class="col-11 pb-3 mx-auto bg-white">
                     <div class="col-12 mt-4">
@@ -66,14 +66,13 @@ if( isset($_GET['keyword']) ) {
                     </div>
                     <div class="col-12 p-0">
                         <?php foreach( $items as $item ): ?>
-                        <div class="card col-sm-12 col-md-4 col-lg-3 mt-4 mx-1 float-left" style="width: 18.2rem">
-                            <form action="detail.php" method="get">
-                                <button class="btn btn-link p-0 shadow-sm" value="<?= $item['id'] ?>" name="id">
-                                    <img class="card-img-top" src="img/produk/<?= $item['gambar'] ?>"
-                                        alt="<?= $item['nama_produk'] ?>" style="width: 250px; height: 250px;">
-                                    <div class="mask rgba-white-light"></div>
-                                </button>
-                            </form>
+                        <div class="card col-sm-12 col-md-4 col-lg-3 mt-4 mx-1 float-left"
+                            style="width: 18.2rem; height: 525px;">
+                            <a class="btn btn-link p-0 shadow-sm" href="detail.php?id=<?= $item['id'] ?>" name="id">
+                                <img class="card-img-top" src="img/produk/<?= $item['gambar'] ?>"
+                                    alt="<?= $item['nama_produk'] ?>" style="width: 250px; height: 250px;">
+                                <div class="mask rgba-white-light"></div>
+                            </a>
                             <div class="card-body">
                                 <h4 class="card-title"><?= $item['nama_produk'] ?></h4>
                                 <ul class="list-unstyled">

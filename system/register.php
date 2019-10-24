@@ -2,8 +2,6 @@
 
 require 'conn.php';
 
-global $conn;
-
 $email = mysqli_real_escape_string($conn, htmlspecialchars($_POST['email']));
 $password = mysqli_real_escape_string($conn, htmlspecialchars($_POST['password']));
 $cpassword = mysqli_real_escape_string($conn, htmlspecialchars($_POST['cpassword']));

@@ -30,14 +30,14 @@ if(!isset($_SESSION['email'])) {
     <title>Apotek | Tambah Produk</title>
 </head>
 
-<body class="aqua-gradient">
+<body>
     <?php include "a_navbar.php" ?>
-    <div class="container-fluid">
+    <div class="container-fluid aqua-gradient">
         <div class="row">
             <div class="col-11 mx-auto bg-white">
+                <h1 class="mt-5 text-center"><b>TAMBAH PRODUK</b></h1>
                 <form action="system/tambah_produk.php" method="post" class="pt-5" enctype="multipart/form-data">
                     <div class="form-group mx-auto">
-                        <h1 class="mb-5 text-center"><b>TAMBAH PRODUK</b></h1>
                         <input class="form-control my-3" type="text" placeholder="Nama Produk" name="nama_produk"
                             required>
                         <div class="custom-file">

@@ -33,16 +33,16 @@ $item = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM produk WHERE id = 
     <title>Apotek | Update</title>
 </head>
 
-<body class="aqua-gradient">
+<body>
     <?php include "a_navbar.php" ?>
     <div class="pt-3">
-        <div class="container-fluid mt-1">
+        <div class="container-fluid aqua-gradient mt-1">
             <div class="row">
                 <div class="col-11 py-3 mx-auto bg-white">
                     <div class="row">
                         <div class="col-6 p-0">
                             <div class="card col-12 shadow-none">
-                                <img class="card-img-top mx-auto" src="img/<?= $item['gambar'] ?>"
+                                <img class="card-img-top mx-auto" src="img/produk/<?= $item['gambar'] ?>"
                                     alt="<?= $item['nama_produk'] ?>" style="width: 300px;">
                                 <div class="card-body">
                                     <h4 class="card-title text-center"><?= $item['nama_produk'] ?></h4>

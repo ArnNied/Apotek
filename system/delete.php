@@ -12,8 +12,6 @@ if(!isset($_SESSION['email'])) {
     die;
 }
 
-global $conn;
-
 $id = $_GET['id'];
 
 // mysqli_query($conn, "DELETE FROM produk WHERE id = ?");

@@ -2,18 +2,6 @@
 
 require 'conn.php';
 
-session_start();
-
-if(!isset($_SESSION['email'])) {
-    header('Location: ../produk.php');
-    die;
-} else if($_SESSION['role'] != 1) {
-    header('Location: ../produk.php');
-    die;
-}
-
-global $conn;
-
 $nama_produk = htmlspecialchars($_POST['nama_produk']);
 $deskripsi = htmlspecialchars($_POST['deskripsi']);
 $takaran = htmlspecialchars($_POST['takaran']);
@@ -46,7 +34,7 @@ $stmt->bind_param("sssssi", $nama_produk, $stringGambar, $deskripsi, $takaran, $
 $stmt->execute();
 // mysqli_query($conn, $query);
 
-var_dump(mysqli_affected_rows($conn)); die;
+// var_dump(mysqli_affected_rows($conn)); die;
 if(mysqli_affected_rows($conn) > 0) {
     echo "<script> alert('Data berhasil ditambahkan'); document.location.href = '../a_produk.php' </script>";
 } else {

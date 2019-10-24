@@ -26,9 +26,9 @@ if(isset($_SESSION['email'])) {
     <title>Apotek</title>
 </head>
 
-<body class="aqua-gradient">
+<body>
 
-    <div class="container-fluid">
+    <div class="container-fluid aqua-gradient">
 
         <!-- <div class="row">
             <div class="purple-bg">
@@ -36,7 +36,7 @@ if(isset($_SESSION['email'])) {
             </div>
         </div> -->
 
-        <div class="row my-3">
+        <div class="row py-3">
 
             <div class="card-deck mx-auto text-center">
                 <div class="card shadow-sm pt-5">

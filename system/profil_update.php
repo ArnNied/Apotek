@@ -2,15 +2,6 @@
 
 require 'conn.php';
 
-session_start();
-
-if(!isset($_SESSION['email'])) {
-    header('Location: ../produk.php');
-    die;
-}
-
-global $conn;
-
 $id = $_POST['update'];
 $nama = htmlspecialchars($_POST['nama']);
 $umur = htmlspecialchars($_POST['umur']);

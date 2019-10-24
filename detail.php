@@ -41,7 +41,7 @@ $items = query("SELECT * FROM produk WHERE id = $id");
                 <div class="col-12 p-0">
                     <?php foreach( $items as $item ): ?>
                     <div class="card col-12">
-                        <img class="card-img-top mx-auto" src="img/<?= $item['gambar'] ?>"
+                        <img class="card-img-top mx-auto" src="img/produk/<?= $item['gambar'] ?>"
                             alt="<?= $item['nama_produk'] ?>" style="width: 300px;">
                         <div class="card-body text-center">
                             <h4 class="card-title"><?= $item['nama_produk'] ?></h4>
