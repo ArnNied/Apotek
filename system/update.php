@@ -4,22 +4,37 @@ require 'conn.php';
 
 session_start();
 
-if(!isset($_SESSION['email'])) {
-    header('Location: ../produk.php');
-    die;
-} else if($_SESSION['role'] != 1) {
-    header('Location: ../produk.php');
-    die;
-}
-
-global $conn;
-
 $id = $_POST['update'];
 $nama_produk = htmlspecialchars($_POST['nama_produk']);
 $deskripsi = htmlspecialchars($_POST['deskripsi']);
 $takaran = htmlspecialchars($_POST['takaran']);
 $harga = htmlspecialchars($_POST['harga']);
 $qty = htmlspecialchars($_POST['qty']);
+
+// Clears dot and 'e'
+$hargaArray = implode(explode("e", implode(explode(".", $harga))));
+$qtyCheck = implode(explode("e", implode(explode(".", $qty))));
+
+if( $harga < 0 || $qty < 0 ) {
+    echo "<script> alert('Please enter a valid number'); document.location.href = '../tambah_produk.php' </script>";
+    die;
+}
+
+$hargaArray = str_split($harga);
+$qtyCheck = str_split($qty);
+
+// Turns price into dotted version
+$hargaDb = [];
+for($i = 0; $i < strlen($harga); $i++) {
+    array_push($hargaDb, array_pop($hargaArray));
+    if( $i % 3 == 2 ){
+        array_push($hargaDb, ".");
+    }
+}
+if( end($hargaDb) == "." ) {
+    array_pop($hargaDb);
+}
+$hargaDb = implode(array_reverse($hargaDb));
 
 $query = "SELECT gambar FROM produk WHERE id = '$id'";
 $cur_gambar = mysqli_fetch_assoc(mysqli_query($conn, $query));
@@ -42,13 +57,14 @@ if($_FILES['gambar']['error'] == 4) {
     move_uploaded_file($tmpName, '../img/'.$stringGambar);
 }
 
-// $query = "UPDATE `produk` (`nama_produk`, `deskripsi`, `takaran`, `harga`, `qty`) SET ('$nama_produk', '$deskripsi', '$takaran' '$harga','$qty') WHERE id = '$id'";
-// mysqli_query($conn, $query);
-
 $query = "UPDATE produk SET nama_produk = ?, gambar = ?, deskripsi = ?, takaran = ?, harga = ?, qty = ? WHERE id = ?";
 $stmt = $conn->prepare($query);
-$stmt->bind_param("sssssii", $nama_produk, $stringGambar, $deskripsi, $takaran, $harga, $qty, $id);
+$stmt->bind_param("sssssii", $nama_produk, $stringGambar, $deskripsi, $takaran, $hargaDb, $qty, $id);
 $stmt->execute();
 
-header('Location: ../a_produk.php')
+if(mysqli_affected_rows($conn) > 0) {
+    echo "<script> alert('Product updated'); document.location.href = ../a_produk.php </script>";
+} else {
+    echo "<script> alert('Something went wrong'); document.location.href = ../a_produk.php </script>";
+}
 ?>

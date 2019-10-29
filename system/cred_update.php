@@ -2,8 +2,6 @@
 
 require 'conn.php';
 
-session_start();
-
 $id = $_POST['update'];
 $new_email = mysqli_real_escape_string($conn, htmlspecialchars($_POST['email']));
 $cur_password = mysqli_real_escape_string($conn, htmlspecialchars($_POST['cur_password']));
@@ -63,7 +61,6 @@ if(password_verify($cur_password, $user['password'])) {
             echo "<script> alert('Password must be 8 or more characters'); document.location.href = '../profil.php' </script>";
             die;
         } else {
-
             // Execute change password
             $new_password = password_hash($new_password, PASSWORD_DEFAULT);
 
@@ -74,12 +71,9 @@ if(password_verify($cur_password, $user['password'])) {
             $stmt->close();
 
             echo "<script> alert('Password successfully changed!'); document.location.href = '../profil.php' </script>";
-        }
-        
+        }        
     }
-    
     echo "<script> document.location.href = '../profil.php' </script>";
-
 } else {
     echo "<script> alert('Incorrect password!'); document.location.href = '../profil.php' </script>";
 }

@@ -75,7 +75,7 @@ $item = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM produk WHERE id = 
                                         required><?= $item['deskripsi'] ?></textarea>
                                     <input class="form-control my-3" type="text" placeholder="Takaran" name="takaran"
                                         autocomplete="off" value="<?= $item['takaran'] ?>" required>
-                                    <input class="form-control my-3" type="text" placeholder="Harga" name="harga"
+                                    <input class="form-control my-3" type="number" placeholder="Harga" name="harga"
                                         autocomplete="off" value="<?= $item['harga'] ?>" required>
                                     <input class="form-control my-3" type="number" placeholder="QTY" name="qty"
                                         autocomplete="off" value="<?= $item['qty'] ?>" required>

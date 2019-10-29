@@ -51,7 +51,7 @@ $items = query("SELECT * FROM produk WHERE id = $id");
                                 <li class="nav-item font-weight-bold">Takaran:</li>
                                 <li class="nav-item"><?= $item['takaran'] ?></li>
                                 <li class="nav-item font-weight-bold">Harga:</li>
-                                <li class="nav-item"><?= $item['harga'] ?></li>
+                                <li class="nav-item">Rp. <?= $item['harga'] ?></li>
                             </ul>
                         </div>
                     </div>

@@ -48,7 +48,7 @@ if(!isset($_SESSION['email'])) {
                         <textarea class="form-control my-3" type="text" placeholder="Deskripsi" name="deskripsi"
                             required></textarea>
                         <input class="form-control my-3" type="text" placeholder="Takaran" name="takaran">
-                        <input class="form-control my-3" type="text" placeholder="Harga" name="harga" required>
+                        <input class="form-control my-3" type="number" placeholder="Harga" name="harga" required>
                         <input class="form-control my-3" type="number" placeholder="Kuantitas" name="qty" required>
                         <button class="btn btn-primary mx-auto mt-3 w-100" type="submit" name="tambah">TAMBAH</button>
                     </div>

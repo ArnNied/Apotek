@@ -9,7 +9,7 @@ $jenis_kelamin = htmlspecialchars($_POST['jenis_kelamin']);
 $alamat = htmlspecialchars($_POST['alamat']);
 
 if($umur <= 0) {
-    echo "<script> alert('Please enter a valid age!'); document.location.href = '../profil.php' </script>";
+    echo "<script> alert('Please enter a valid age'); document.location.href = '../profil.php' </script>";
     die;
 }
 
@@ -27,7 +27,7 @@ if($_FILES['gambar']['error'] == 4) {
     $extGambar = end($extGambar);
 
     if(!in_array(strtolower($extGambar), $allowedExt)) {
-        echo "<script> alert('Yang anda upload bukan gambar'); document.location.href = '../profil.php' </script>";
+        echo "<script> alert('Uploaded file is not an image'); document.location.href = '../profil.php' </script>";
     }
 
     $stringGambar = random_str(16).".".$extGambar;

@@ -9,7 +9,6 @@ $cpassword = mysqli_real_escape_string($conn, htmlspecialchars($_POST['cpassword
 $allowedEmail = ['yahoo.com',
                 'gmail.com',
                 'yahoo.co.id',
-                'gmail.co.id'
             ];
 $email_ver = explode('@', $email);
 $email_ver = end($email_ver);
@@ -21,7 +20,7 @@ if(!in_array($email_ver, $allowedEmail)) {
 
 
 if($password != $cpassword) {
-    echo "<script> alert('Confirm password is blank or false'); document.location.href = '../index.php' </script>"; 
+    echo "<script> alert('Confirm password is false'); document.location.href = '../index.php' </script>"; 
     die;
 }
 
