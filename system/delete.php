@@ -3,11 +3,7 @@
 require 'conn.php';
 
 session_start();
-
-if(!isset($_SESSION['email'])) {
-    header('Location: ../produk.php');
-    die;
-} else if($_SESSION['role'] != 1) {
+if(!isset($_SESSION['email']) || $_SESSION['role'] != 1) {
     header('Location: ../produk.php');
     die;
 }
@@ -17,11 +13,13 @@ $id = $_GET['id'];
 // mysqli_query($conn, "DELETE FROM produk WHERE id = ?");
 // header('Location: ../a_produk.php');
 
+$query = mysqli_fetch_assoc(mysqli_query($conn, "SELECT gambar FROM produk WHERE id = $id"));
+unlink("../img/produk/".$query['gambar']);
+
 $query = "DELETE FROM produk WHERE id = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("i", $id);
 $stmt->execute();
 header('Location: ../a_produk.php');
-
 
 ?>

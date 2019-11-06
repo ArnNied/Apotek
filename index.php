@@ -4,7 +4,7 @@ require 'system/conn.php';
 
 session_start();
 
-if(isset($_SESSION['email'])) {
+if(isset($_SESSION['user'])) {
     header('Location: produk.php');
 }
 ?>
@@ -29,13 +29,6 @@ if(isset($_SESSION['email'])) {
 <body>
 
     <div class="container-fluid aqua-gradient">
-
-        <!-- <div class="row">
-            <div class="purple-bg">
-                <img src="img/Apotek.jpg" class="col-12 vh-100 p-5">
-            </div>
-        </div> -->
-
         <div class="row py-3">
 
             <div class="card-deck mx-auto text-center">
@@ -113,10 +106,8 @@ if(isset($_SESSION['email'])) {
 
         </div>
         <div class="row">
-            <h2 class="text-center my-2">
-                <i>
+            <h2 class="text-center my-2 font-italic">
                     “Medicine is not a science; it is empiricism founded on a network of blunders.” - Emmet Densmore
-                </i>
                 <h2>
         </div>
         

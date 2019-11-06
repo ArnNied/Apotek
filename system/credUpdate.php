@@ -2,6 +2,12 @@
 
 require 'conn.php';
 
+session_start();
+if(!isset($_SESSION['email'])) {
+    header('Location: ../produk.php');
+    die;
+}
+
 $id = $_POST['update'];
 $new_email = mysqli_real_escape_string($conn, htmlspecialchars($_POST['email']));
 $cur_password = mysqli_real_escape_string($conn, htmlspecialchars($_POST['cur_password']));
@@ -18,10 +24,8 @@ if(password_verify($cur_password, $user['password'])) {
         $allowedEmail = ['yahoo.com',
                         'gmail.com',
                         'yahoo.co.id',
-                        'gmail.co.id'
                     ];
-        $email_ver = explode('@', $new_email);
-        $email_ver = end($email_ver);
+        $email_ver = end(explode('@', $new_email));
 
         if(!in_array($email_ver, $allowedEmail)) {
             echo "<script> alert('Please enter a valid email'); document.location.href = '../index.php' </script>";
@@ -29,11 +33,10 @@ if(password_verify($cur_password, $user['password'])) {
         }
 
         // Email availability check
-        $query = "SELECT * FROM users WHERE email = '$new_email'";
-        mysqli_query($conn, $query);
+        mysqli_query($conn, "SELECT * FROM users WHERE email = '$new_email'");
         
         if(mysqli_affected_rows($conn) > 0) {
-            echo "<script> alert('Email already registered! Please use another email'); document.location.href = '../profil.php' </script>";
+            echo "<script> alert('Email already used! Please use another email'); document.location.href = '../profil.php' </script>";
             die;
         } else {
             // Execute email change
@@ -54,11 +57,8 @@ if(password_verify($cur_password, $user['password'])) {
         if($new_password != $cnew_password) {
             echo "<script> alert('Incorrect confirm password!') </script>";
             die;
-        } else if(strlen($new_password) > 72) {
-            echo "<script> alert('Password must be 72 or less characters'); document.location.href = '../profil.php' </script>";
-            die;
-        } else if(strlen($new_password) < 8) {
-            echo "<script> alert('Password must be 8 or more characters'); document.location.href = '../profil.php' </script>";
+        } else if(strlen($new_password) > 72 || strlen($new_password) < 8) {
+            echo "<script> alert('Password must be between 8 - 72 characters'); document.location.href = '../profil.php' </script>";
             die;
         } else {
             // Execute change password

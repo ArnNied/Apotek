@@ -4,13 +4,12 @@ require 'system/conn.php';
 
 session_start();
 
-if(!isset($_SESSION['email'])) {
+if(!isset($_SESSION['user'])) {
     header('Location: index.php');
 }
 
-$email = $_SESSION['email'];
-$user = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM users WHERE email = '$email'"));
-
+$email = $_SESSION['user']['email'];
+$user = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM `users` WHERE `email` = '$email'"));
 ?>
 
 

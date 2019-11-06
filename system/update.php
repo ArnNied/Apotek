@@ -11,33 +11,16 @@ $takaran = htmlspecialchars($_POST['takaran']);
 $harga = htmlspecialchars($_POST['harga']);
 $qty = htmlspecialchars($_POST['qty']);
 
-// Clears dot and 'e'
-$hargaArray = implode(explode("e", implode(explode(".", $harga))));
-$qtyCheck = implode(explode("e", implode(explode(".", $qty))));
-
 if( $harga < 0 || $qty < 0 ) {
     echo "<script> alert('Please enter a valid number'); document.location.href = '../tambah_produk.php' </script>";
     die;
 }
 
-$hargaArray = str_split($harga);
-$qtyCheck = str_split($qty);
+$harga = implode(explode("e", implode(explode(".", $harga))));
+$qty = implode(explode("e", implode(explode(".", $qty))));
 
-// Turns price into dotted version
-$hargaDb = [];
-for($i = 0; $i < strlen($harga); $i++) {
-    array_push($hargaDb, array_pop($hargaArray));
-    if( $i % 3 == 2 ){
-        array_push($hargaDb, ".");
-    }
-}
-if( end($hargaDb) == "." ) {
-    array_pop($hargaDb);
-}
-$hargaDb = implode(array_reverse($hargaDb));
+$cur_gambar = mysqli_fetch_assoc(mysqli_query($conn, "SELECT gambar FROM produk WHERE id = $id"));
 
-$query = "SELECT gambar FROM produk WHERE id = '$id'";
-$cur_gambar = mysqli_fetch_assoc(mysqli_query($conn, $query));
 if($_FILES['gambar']['error'] == 4) {
     $stringGambar = $cur_gambar['gambar'];
 } else {
@@ -51,7 +34,10 @@ if($_FILES['gambar']['error'] == 4) {
 
     if(!in_array(strtolower($extGambar), $allowedExt)) {
         echo "<script> alert('Yang anda upload bukan gambar'); document.location.href = ../a_produk.php </script>";
+        die;
     }
+
+    unlink("../img/users/".$cur_gambar['gambar']);
 
     $stringGambar = random_str(16).".".$extGambar;
     move_uploaded_file($tmpName, '../img/'.$stringGambar);
@@ -59,7 +45,7 @@ if($_FILES['gambar']['error'] == 4) {
 
 $query = "UPDATE produk SET nama_produk = ?, gambar = ?, deskripsi = ?, takaran = ?, harga = ?, qty = ? WHERE id = ?";
 $stmt = $conn->prepare($query);
-$stmt->bind_param("sssssii", $nama_produk, $stringGambar, $deskripsi, $takaran, $hargaDb, $qty, $id);
+$stmt->bind_param("sssssii", $nama_produk, $stringGambar, $deskripsi, $takaran, $harga, $qty, $id);
 $stmt->execute();
 
 if(mysqli_affected_rows($conn) > 0) {
