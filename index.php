@@ -81,7 +81,7 @@ if(isset($_SESSION['user'])) {
                                         name="password" autocomplete="off" required>
                                     <input class="form-control my-3" type="password" placeholder="Confirm Password"
                                         name="cpassword" autocomplete="off" required>
-                                    <button class="btn btn-primary mx-auto mt-3 w-100" type="submit">DAFTAR</button>
+                                    <button class="btn btn-primary mx-auto mt-3 w-100" type="submit" name="submit">DAFTAR</button>
                                 </div>
                             </form>
                         </div>

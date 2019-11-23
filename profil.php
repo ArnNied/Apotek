@@ -57,13 +57,13 @@ $user = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM `users` WHERE `ema
                     </div>
                     <div class="col-6 mt-5">
                         <h2 class="text-center">PROFILE</h2>
-                        <form action="system/profil_update.php" method="post" enctype="multipart/form-data">
+                        <form action="system/profilUpdate.php" method="post" enctype="multipart/form-data">
                             <div class="form-group my-4 mx-auto">
                                 <input class="form-control my-3" type="text" placeholder="Nama Lengkap" name="nama"
-                                    value="<?= $user['nama'] ?>">
+                                    value="<?= $user['nama'] ?>" required>
 
                                 <input class="form-control my-3" type="number" placeholder="Umur" name="umur"
-                                    autocomplete="off" value="<?= $user['umur'] ?>">
+                                    autocomplete="off" value="<?= $user['umur'] ?>" required>
 
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" class="custom-control-input" id="defaultInline1"
@@ -79,18 +79,18 @@ $user = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM `users` WHERE `ema
                                 </div>
 
                                 <input class="form-control my-3" type="text" placeholder="Alamat" name="alamat"
-                                    autocomplete="off" value="<?= $user['alamat'] ?>">
+                                    autocomplete="off" value="<?= $user['alamat'] ?>" required>
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" id="inputGroupFile01"
                                         aria-describedby="inputGroupFileAddon01" name="gambar">
                                     <label class="custom-file-label" for="inputGroupFile01">Choose image</label>
                                 </div>
-                                <button class="btn btn-danger mx-auto mt-3 w-100" type="submit" name="update"
+                                <button class="btn btn-danger mx-auto mt-3 w-100" type="submit" name="profil1"
                                     value="<?= $user['id'] ?>">UPDATE</button>
                             </div>
                         </form>
                         <h3 class="text-center">EMAIL & PASSWORD</h3>
-                        <form action="system/cred_update.php" method="post">
+                        <form action="system/profilUpdate.php" method="post">
                             <div class="form-group my-4 mx-auto">
                                 <input class="form-control my-3" type="text" placeholder="E-mail" name="email"
                                     autocomplete="off" value="<?= $user['email'] ?>" required>
@@ -101,7 +101,7 @@ $user = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM `users` WHERE `ema
                                 <input class="form-control my-3" type="password"
                                     placeholder="Current password (Required)" name="cur_password" autocomplete="off"
                                     required>
-                                <button class="btn btn-danger mx-auto mt-3 w-100" type="submit" name="update"
+                                <button class="btn btn-danger mx-auto mt-3 w-100" type="submit" name="profil2"
                                     value="<?= $user['id'] ?>">UPDATE</button>
                             </div>
                         </form>

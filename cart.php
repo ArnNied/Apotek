@@ -8,7 +8,7 @@ if(!isset($_SESSION['user'])) {
     header('Location: index.php');
     die;
 }
-
+// var_dump($_SESSION);
 ?>
 
 <!DOCTYPE html>
@@ -65,7 +65,7 @@ if(!isset($_SESSION['user'])) {
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach($_SESSION['cart'] as $item): ?>
+                            <?php foreach($_SESSION['cart']['item'] as $item): ?>
                             <?php $i = 1 ?>
                             <tr>
                                 <th scope="row"><?= $i ?></th>
@@ -73,38 +73,20 @@ if(!isset($_SESSION['user'])) {
                                 <td><?= $item['nama_produk'] ?></td>
                                 <td class="harga <?=$item['id']?>"><?= $item['harga'] ?></td>
                                 <td class="qty <?=$item['id']?>"><?= $item['qty'] ?></td>
-                                <td class="jumlah <?=$item['id']?>"><script>
-                                var harga = document.getElementsByClassName('harga <?=$item['id']?>')[0].innerHTML;
-                                var qty = document.getElementsByClassName('qty <?=$item['id']?>')[0].innerHTML;
-                                document.getElementsByClassName('jumlah <?=$item['id']?>')[0].innerHTML = parseInt(harga)*parseInt(qty);
-                                </script></td>
+                                <td class="jumlah <?=$item['id']?>"><?= $item['total'] ?>
+                                <!-- SCRIPT 1 -->
+                                </td>
                             </tr>
                             <?php $i++ ?>
                             <?php endforeach; ?>
                             <tr>
                                 <td colspan="3"></td>
                                 <td class="font-weight-bold">Total</td>
-                                <td id="totalQty" class="font-weight-bold">
-                                <script>
-                                    var produkQty = document.getElementsByClassName('qty');
-                                    var item = [];
-                                    for(var i = 0; i < produkQty.length; i++){
-                                        item[i] = parseInt(produkQty[i].innerHTML);
-                                    }
-                                    totalQty = item.reduce((a,b) => a + b, 0);
-                                    document.getElementById('totalQty').innerHTML = totalQty;
-                                </script>
+                                <td id="totalQty" class="font-weight-bold"><?= $_SESSION['cart']['total']['qty'] ?>
+                                <!-- SCRIPT 2 -->
                                 </td>
-                                <td id="totalHarga" class="font-weight-bold">
-                                <script>
-                                    var produkHarga = document.getElementsByClassName('jumlah');
-                                    var item = [];
-                                    for(var i = 0; i < produkHarga.length; i++){
-                                        item[i] = parseInt(produkHarga[i].innerHTML);
-                                    }
-                                    totalHarga = item.reduce((a,b) => a + b, 0);
-                                    document.getElementById('totalHarga').innerHTML = totalHarga;
-                                </script>
+                                <td id="totalHarga" class="font-weight-bold"><?= $_SESSION['cart']['total']['harga'] ?>
+                                <!-- SCRIPT 3 -->
                                 </td>
                             </tr>
                         </tbody>
@@ -119,9 +101,38 @@ if(!isset($_SESSION['user'])) {
                 </div>
             </div>
         </div>
-
     </div>
     <?php include "footer.php" ?>
+
 </body>
 
 </html>
+
+<!-- SCRIPT 1 -->
+<!-- <script>
+    var harga = document.getElementsByClassName('harga <?=$item['id']?>')[0].innerHTML;
+    var qty = document.getElementsByClassName('qty <?=$item['id']?>')[0].innerHTML;
+    document.getElementsByClassName('jumlah <?=$item['id']?>')[0].innerHTML = parseInt(harga)*parseInt(qty);
+    </script> -->
+
+<!-- SCRIPT 2 -->
+<!-- <script>
+    var produkQty = document.getElementsByClassName('qty');
+    var item = [];
+    for(var i = 0; i < produkQty.length; i++){
+        item[i] = parseInt(produkQty[i].innerHTML);
+    }
+    totalQty = item.reduce((a,b) => a + b, 0);
+    document.getElementById('totalQty').innerHTML = totalQty;
+    </script> -->
+                        
+<!-- SCRIPT 3 -->
+<!-- <script>
+    var produkHarga = document.getElementsByClassName('jumlah');
+    var item = [];
+    for(var i = 0; i < produkHarga.length; i++){
+        item[i] = parseInt(produkHarga[i].innerHTML);
+    }
+    totalHarga = item.reduce((a,b) => a + b, 0);
+    document.getElementById('totalHarga').innerHTML = totalHarga;
+</script> -->

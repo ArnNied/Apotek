@@ -4,9 +4,9 @@ require "system/conn.php";
 
 session_start();
 
-if(!isset($_SESSION['email'])) {
+if(!isset($_SESSION['user'])) {
     header('Location: index.php');
-} else if($_SESSION['role'] != 1) {
+} else if($_SESSION['user']['role'] != 1) {
     header('Location: produk.php');
 }
 
@@ -31,12 +31,12 @@ if(!isset($_SESSION['email'])) {
 </head>
 
 <body>
-    <?php include "a_navbar.php" ?>
+    <?php include "navbar.php" ?>
     <div class="container-fluid aqua-gradient">
         <div class="row">
             <div class="col-11 mx-auto bg-white">
                 <h1 class="mt-5 text-center"><b>TAMBAH PRODUK</b></h1>
-                <form action="system/tambah_produk.php" method="post" class="pt-5" enctype="multipart/form-data">
+                <form action="system/tambahProduk.php" method="post" class="pt-5" enctype="multipart/form-data">
                     <div class="form-group mx-auto">
                         <input class="form-control my-3" type="text" placeholder="Nama Produk" name="nama_produk"
                             required>

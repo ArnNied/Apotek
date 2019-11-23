@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 05, 2019 at 12:35 PM
+-- Generation Time: Nov 05, 2019 at 12:44 PM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.8
 
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `apotek_ol`
 --
+CREATE DATABASE IF NOT EXISTS `apotek_ol` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `apotek_ol`;
 
 -- --------------------------------------------------------
 
