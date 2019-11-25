@@ -116,7 +116,7 @@ if( isset($_GET['keyword']) ) {
                     <div class="col-12 p-0">
                         <?php foreach( $items as $item ): ?>
                         <div class="card col-sm-12 col-md-4 col-lg-3 mt-4 mx-1 float-left"
-                            style="width: 18.2rem;">
+                            style="width: 18.0rem;">
                             <a class="btn btn-link p-0 mb-0 shadow-sm" href="detail.php?id=<?= $item['id'] ?>">
                                 <img class="card-img-top" src="img/produk/<?= $item['gambar'] ?>"
                                     alt="<?= $item['nama_produk'] ?>" style="width: 250px; height: 250px;">

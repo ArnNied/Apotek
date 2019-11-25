@@ -92,7 +92,7 @@ if(isset($_SESSION['user'])) {
                             <h2>LOGIN</h2>
                             <form action="system/user/login.php" method="post">
                                 <div class="form-group my-4 mx-uto">
-                                    <input class="form-control my-3" type="email" placeholder="E-Mail" name="email" autocomplete="off" required>
+                                    <input class="form-control my-3" type="email" placeholder="E-Mail" name="email" required>
                                     <input class="form-control my-3" type="password" placeholder="Password"
                                         name="password" autocomplete="off" required>
                                     <button class="btn btn-primary mx-auto mt-3 w-100" type="submit" name="login">LOGIN</button>

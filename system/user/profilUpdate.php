@@ -55,9 +55,7 @@ if(isset($_POST['profil1'])) {
     $stmt->bind_param("sisssi", $nama, $umur, $jenis_kelamin, $alamat, $stringGambar, $id);
     $stmt->execute();
 
-    header('Location: ../profil.php');
-} else {
-    header("Location: ../profil.php");
+    echo "<script> document.location.href = '../../profil.php' </script>";
 }
 
 if(isset($_POST['profil2'])) {
@@ -123,14 +121,14 @@ if(isset($_POST['profil2'])) {
                 $stmt->execute();
                 $stmt->close();
 
-                echo "<script> alert('Password successfully changed!'); document.location.href = '../../profil.php' </script>";
+                echo "<script> alert('Password successfully changed!') </script>";
             }        
         }
         echo "<script> document.location.href = '../../profil.php' </script>";
     } else {
         echo "<script> alert('Incorrect password!'); document.location.href = '../../profil.php' </script>";
     }
-} else {
-    header("Location: ../../profil.php");
 }
+
+echo "<script> document.location.href = '../../profil.php' </script>";
 ?>
