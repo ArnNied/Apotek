@@ -1,6 +1,6 @@
 <?php 
 
-require 'conn.php';
+require '../conn.php';
 
 session_start();
 if(isset($_SESSION['user'])) {

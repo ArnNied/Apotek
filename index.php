@@ -74,7 +74,7 @@ if(isset($_SESSION['user'])) {
                     <div class="card p-3 shadow-none">
                         <div class="card-body">
                             <h2>REGISTRASI</h2>
-                            <form action="system/register.php" method="post">
+                            <form action="system/user/register.php" method="post">
                                 <div class="form-group my-4 mx-auto">
                                     <input class="form-control my-3" type="email" placeholder="E-Mail" name="email" autocomplete="off" required>
                                     <input class="form-control my-3" type="password" placeholder="Password"
@@ -90,7 +90,7 @@ if(isset($_SESSION['user'])) {
                     <div class="card p-3 shadow-none">
                         <div class="card-body">
                             <h2>LOGIN</h2>
-                            <form action="system/login.php" method="post">
+                            <form action="system/user/login.php" method="post">
                                 <div class="form-group my-4 mx-uto">
                                     <input class="form-control my-3" type="email" placeholder="E-Mail" name="email" autocomplete="off" required>
                                     <input class="form-control my-3" type="password" placeholder="Password"

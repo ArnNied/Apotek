@@ -8,7 +8,7 @@ if(!isset($_SESSION['user'])) {
     header('Location: index.php');
 }
 
-$limit = 2;
+$limit = 16;
 $total = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM produk"));
 $totalPage = ceil($total / $limit);
 if(!isset($_GET['page'])){
@@ -130,13 +130,13 @@ if( isset($_GET['keyword']) ) {
                                     <li class="nav-item">QTY: <?= $item['qty'] ?></li>
                                 </ul>
                                 <?php if($_SESSION['user']['role'] == 1): ?>
-                                <form action="system/delete.php" method="get">
+                                <form action="system/product/delete.php" method="get">
                                     <button type="submit" class="btn btn-danger btn-md mx-auto" name="id"
                                         value="<?= $item['id'] ?>"
                                         onclick="return confirm('Are you sure?')"><i class="fa fa-trash"></i></button>
                                 </form>
                                 <?php else: ?>
-                                <form action="system/cart.php" method="post">
+                                <form action="system/product/cart.php" method="post">
                                     <input class="form-control mx-auto" type="number" placeholder="Jumlah" name="jumlah"
                                     autocomplete="off">
                                     <button type="submit" class="btn btn-success btn-md mx-auto w-100" name="cart"

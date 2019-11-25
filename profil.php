@@ -59,7 +59,7 @@ $user = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM `users` WHERE `ema
                     </div>
                     <div class="col-6 mt-5">
                         <h2 class="text-center">PROFILE</h2>
-                        <form action="system/profilUpdate.php" method="post" enctype="multipart/form-data">
+                        <form action="system/user/profilUpdate.php" method="post" enctype="multipart/form-data">
                             <div class="form-group my-4 mx-auto">
                                 <input class="form-control my-3" type="text" placeholder="Nama Lengkap" name="nama"
                                     value="<?= $user['nama'] ?>" required>
@@ -92,7 +92,7 @@ $user = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM `users` WHERE `ema
                             </div>
                         </form>
                         <h3 class="text-center">EMAIL & PASSWORD</h3>
-                        <form action="system/profilUpdate.php" method="post">
+                        <form action="system/user/profilUpdate.php" method="post">
                             <div class="form-group my-4 mx-auto">
                                 <input class="form-control my-3" type="text" placeholder="E-mail" name="email"
                                     autocomplete="off" value="<?= $user['email'] ?>" required>

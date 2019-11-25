@@ -63,7 +63,7 @@ $item = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM `produk` WHERE `id
                     <?php if($_SESSION['user']['role'] == 1): ?>
                     <div class="col-6 mt-5">
                         <h2 class="text-center">UPDATE</h2>
-                        <form action="system/update.php" method="post" enctype="multipart/form-data">
+                        <form action="system/product/update.php" method="post" enctype="multipart/form-data">
                             <div class="form-group my-4 mx-auto">
                                 <input class="form-control my-3" type="text" placeholder="Nama Produk"
                                     name="nama_produk" value="<?= $item['nama_produk'] ?>" required>

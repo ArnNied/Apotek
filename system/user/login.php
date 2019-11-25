@@ -1,6 +1,6 @@
 <?php 
 
-require 'conn.php';
+require '../conn.php';
 
 session_start();
 if(isset($_SESSION['user'])) {
@@ -29,6 +29,6 @@ if(isset($_POST['login'])){
         echo "<script> alert('User not found!'); document.location.href = '../../index.php' </script>";
     }
 } else {
-    header("Location: ../index.php");
+    header("Location: ../../index.php");
 }
 ?>
