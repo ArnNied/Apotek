@@ -38,6 +38,6 @@ $current_user = mysqli_fetch_assoc(mysqli_query($conn, "SELECT `role` FROM `user
                 <a class="nav-link" href="system/logout.php">Logout</a>
             </li>
         </ul>
-        <a class="btn btn-success btn-md ml-auto mr-5 px-5" href="cart.php">CART</a>
+        <a class="btn btn-success btn-md ml-auto mr-5 px-5" href="cart.php"><i class="fa fa-shopping-cart"></i></a>
     </div>
 </nav>

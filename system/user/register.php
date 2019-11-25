@@ -4,7 +4,7 @@ require 'conn.php';
 
 session_start();
 if(isset($_SESSION['user'])) {
-    header("Location: ../produk.php");
+    header("Location: ../../produk.php");
     die;
 }
 
@@ -20,16 +20,16 @@ if(isset($_POST['submit'])) {
     $email_ver = end(explode('@', $email));
 
     if(!in_array($email_ver, $allowedEmail)) {
-        echo "<script> alert('Please enter a valid email'); document.location.href = '../index.php' </script>";
+        echo "<script> alert('Please enter a valid email'); document.location.href = '../../index.php' </script>";
         die;
     }
 
 
     if($password != $cpassword) {
-        echo "<script> alert('Confirm password is false'); document.location.href = '../index.php' </script>"; 
+        echo "<script> alert('Confirm password is false'); document.location.href = '../../index.php' </script>"; 
         die;
     } else if(strlen($password) > 72 || strlen($password) < 8) {
-        echo "<script> alert('Password must be between 8 - 72 characters'); document.location.href = '../profil.php' </script>";
+        echo "<script> alert('Password must be between 8 - 72 characters'); document.location.href = '../../profil.php' </script>";
         die;
     } else {
         $password = password_hash($password, PASSWORD_DEFAULT);
@@ -39,7 +39,7 @@ if(isset($_POST['submit'])) {
     mysqli_query($conn, $query);
 
     if(mysqli_affected_rows($conn) > 0) {
-        echo "<script> alert('Email already registered'); document.location.href = '../index.php' </script>";
+        echo "<script> alert('Email already registered'); document.location.href = '../../index.php' </script>";
         die;
     } else {
         // $query = "INSERT INTO `users` (`role`, `email`, `password`) VALUES ('0', '$email', '$password')";
@@ -49,18 +49,13 @@ if(isset($_POST['submit'])) {
         $stmt2 = $conn->prepare($query2);
         $stmt2->bind_param('sssss', $empty, $empty, $empty, $email, $password);
         $stmt2->execute(); 
-        // if($stmt2) {
-        //     $stmt2->bind_param('ss', $email, $password);
-        //     $stmt2->execute();
-        // } else {
-        //     $conn->error;
-        // }
+        
         $_SESSION['user']['email'] = $email;
         $_SESSION['user']['role'] = 0;
-        header('Location: ../produk.php');
+        header('Location: ../../produk.php');
     }
 } else {
-    header("Location: ../produk.php");
+    header("Location: ../../produk.php");
 }
 ?>
 

@@ -4,7 +4,7 @@ require 'conn.php';
 
 session_start();
 if(!isset($_SESSION['user']) || $_SESSION['user']['role'] != 1) {
-    header('Location: ../produk.php');
+    header('Location: ../../produk.php');
     die;
 }
 
@@ -20,12 +20,9 @@ if(isset($_POST['tambah'])) {
     $qtyArray = implode(explode("e", implode(explode(".", $qty))));
 
     if( $harga < 0 || $qty < 0 ) {
-        echo "<script> alert('Value below 0!'); document.location.href = '../tambah_produk.php' </script>";
+        echo "<script> alert('Value below 0!'); document.location.href = '../../tambah_produk.php' </script>";
         die;
     }
-
-    $hargaArray = str_split($harga);
-    $qtyArray = str_split($qty);
 
     // Image check
     $namaGambar = $_FILES['gambar']['name'];
@@ -33,7 +30,7 @@ if(isset($_POST['tambah'])) {
     $tmpName = $_FILES['gambar']['tmp_name'];
 
     if($error == 4) {
-        echo "<script> alert('Please choose an image'); document.location.href = '../a_produk.php' </script>";
+        echo "<script> alert('Please choose an image'); document.location.href = '../../produk.php' </script>";
         die;
     }
 
@@ -41,26 +38,26 @@ if(isset($_POST['tambah'])) {
     $extGambar = end(explode(".", $namaGambar));
 
     if(!in_array(strtolower($extGambar), $allowedExt)) {
-        echo "<script> alert('Uploaded file is not an image'); document.location.href = '../a_produk.php' </script>";
+        echo "<script> alert('Uploaded file is not an image'); document.location.href = '../../produk.php' </script>";
         die;
     }
 
     $stringGambar = random_str(16).".".$extGambar;
-    move_uploaded_file($tmpName, '../img/produk/'.$stringGambar);
+    move_uploaded_file($tmpName, '../../img/produk/'.$stringGambar);
 
     // Insert to database
-    $query = "INSERT INTO produk (nama_produk, gambar, deskripsi, takaran, harga, qty) VALUES (?,?,?,?,?,?)";
+    $query = "INSERT INTO `produk` (`nama_produk`, `gambar`, `deskripsi`, `takaran`, `harga`, `qty`) VALUES (?,?,?,?,?,?)";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("sssssi", $nama_produk, $stringGambar, $deskripsi, $takaran, $hargaDb, $qty);
     $stmt->execute();
 
     if(mysqli_affected_rows($conn) > 0) {
-        echo "<script> alert('Data added'); document.location.href = '../a_produk.php' </script>";
+        echo "<script> alert('Data added'); document.location.href = '../../produk.php' </script>";
     } else {
-        echo "<script> alert('Something went wrong'); document.location.href = '../a_produk.php' </script>";
+        echo "<script> alert('Something went wrong'); document.location.href = '../../produk.php' </script>";
     }
 } else {
-    header("Location: ../produk.php");
+    header("Location: ../../produk.php");
 }
 
 ?>

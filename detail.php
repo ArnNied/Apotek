@@ -21,6 +21,8 @@ $item = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM `produk` WHERE `id
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -38,9 +40,8 @@ $item = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM `produk` WHERE `id
     <div class="container-fluid mt-5 aqua-gradient">
         <div class="row">
             <div class="col-11 pb-3 mx-auto bg-white">
-                <?php if($_SESSION['user']['role'] == 1): ?>
                 <div class="row">
-                    <div class="col-6 p-0">
+                    <div class="col-6 p-0 text-center mx-auto">
                         <div class="card col-12 shadow-none">
                             <img class="card-img-top mx-auto" src="img/produk/<?= $item['gambar'] ?>"
                                 alt="<?= $item['nama_produk'] ?>" style="width: 300px;">
@@ -59,6 +60,7 @@ $item = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM `produk` WHERE `id
                             </div>
                         </div>
                     </div>
+                    <?php if($_SESSION['user']['role'] == 1): ?>
                     <div class="col-6 mt-5">
                         <h2 class="text-center">UPDATE</h2>
                         <form action="system/update.php" method="post" enctype="multipart/form-data">
@@ -76,38 +78,18 @@ $item = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM `produk` WHERE `id
                                     autocomplete="off" value="<?= $item['takaran'] ?>">
                                 <input class="form-control my-3" type="number" placeholder="Harga" name="harga"
                                     autocomplete="off" value="<?= $item['harga'] ?>" required>
-                                <input class="form-control my-3" type="number" placeholder="QTY" name="qty"
-                                    autocomplete="off" value="<?= $item['qty'] ?>" required>
+                                <input class="form-control my-3" type="number" placeholder="Tambah Stok" name="qty"
+                                    autocomplete="off">
                                 <button class="btn btn-danger mx-auto mt-3 w-100" type="submit" name="update"
                                     value="<?= $item['id'] ?>">UPDATE</button>
                             </div>
                         </form>
                     </div>
+                    <?php endif; ?>
                 </div>
-                <?php else: ?>
-                <div class="col-12 p-0">
-                    <div class="card col-12">
-                        <img class="card-img-top mx-auto" src="img/produk/<?= $item['gambar'] ?>"
-                            alt="<?= $item['nama_produk'] ?>" style="width: 300px;">
-                        <div class="card-body text-center">
-                            <h4 class="card-title"><?= $item['nama_produk'] ?></h4>
-                            <ul class="list-unstyled">
-                                <li class="nav-item font-weight-bold">Deskripsi:</li>
-                                <li class="nav-item"><?= $item['deskripsi'] ?></li>
-                                <li class="nav-item font-weight-bold">Takaran:</li>
-                                <li class="nav-item"><?= $item['takaran'] ?></li>
-                                <li class="nav-item font-weight-bold">Harga:</li>
-                                <li class="nav-item">Rp. <?= $item['harga'] ?></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <?php endif; ?>
-
             </div>
         </div>
     </div>
-
 </div>
 <?php include "footer.php" ?>
 

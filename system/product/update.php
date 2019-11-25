@@ -4,7 +4,7 @@ require 'conn.php';
 
 session_start();
 if(!isset($_SESSION['user']) || $_SESSION['user']['role'] != 1) {
-    header("Location: ../produk.php");
+    header("Location: ../../produk.php");
 }
 
 if(isset($_POST['update'])) {
@@ -16,48 +16,49 @@ if(isset($_POST['update'])) {
     $qty = htmlspecialchars($_POST['qty']);
 
     if( $harga < 0 || $qty < 0 ) {
-        echo "<script> alert('Please enter a valid number'); document.location.href = '../tambah_produk.php' </script>";
+        echo "<script> alert('Please enter a valid number'); document.location.href = '../../tambah_produk.php' </script>";
         die;
     }
 
     $harga = implode(explode("e", implode(explode(".", $harga))));
     $qty = implode(explode("e", implode(explode(".", $qty))));
 
-    $cur_gambar = mysqli_fetch_assoc(mysqli_query($conn, "SELECT gambar FROM produk WHERE id = $id"));
+    $cur = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM `produk` WHERE `id` = $id"));
 
     if($_FILES['gambar']['error'] == 4) {
-        $stringGambar = $cur_gambar['gambar'];
+        $stringGambar = $cur['gambar'];
     } else {
         $namaGambar = $_FILES['gambar']['name'];
         $error = $_FILES['gambar']['error'];
         $tmpName = $_FILES['gambar']['tmp_name'];
 
-        $allowedExt = ['jpg', 'jpeg', 'png'];
+        $allowedExt = ['jpg', 'jpeg', 'png', 'jfif'];
         $extGambar = explode(".", $namaGambar);
         $extGambar = end($extGambar);
 
         if(!in_array(strtolower($extGambar), $allowedExt)) {
-            echo "<script> alert('Yang anda upload bukan gambar'); document.location.href = ../a_produk.php </script>";
+            echo "<script> alert('Yang anda upload bukan gambar'); document.location.href = '../../produk.php' </script>";
             die;
         }
 
-        unlink("../img/users/".$cur_gambar['gambar']);
+        unlink("../../img/produk/".$cur['gambar']);
 
         $stringGambar = random_str(16).".".$extGambar;
-        move_uploaded_file($tmpName, '../img/'.$stringGambar);
+        move_uploaded_file($tmpName, '../../img/produk/'.$stringGambar);
     }
 
-    $query = "UPDATE produk SET nama_produk = ?, gambar = ?, deskripsi = ?, takaran = ?, harga = ?, qty = ? WHERE id = ?";
+    $cur['qty'] += $qty;
+    $query = "UPDATE `produk` SET `nama_produk` = ?, `gambar` = ?, `deskripsi` = ?, `takaran` = ?, `harga` = ?, `qty` = ? WHERE `id` = ?";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("sssssii", $nama_produk, $stringGambar, $deskripsi, $takaran, $harga, $qty, $id);
+    $stmt->bind_param("sssssii", $nama_produk, $stringGambar, $deskripsi, $takaran, $harga, $cur['qty'], $id);
     $stmt->execute();
 
     if(mysqli_affected_rows($conn) > 0) {
-        echo "<script> alert('Product updated'); document.location.href = ../a_produk.php </script>";
+        echo "<script> alert('Product updated'); document.location.href = '../../produk.php' </script>";
     } else {
-        echo "<script> alert('Something went wrong'); document.location.href = ../a_produk.php </script>";
+        echo "<script> alert('Something went wrong'); document.location.href = '../../produk.php' </script>";
     }
 } else {
-    header("Location: ../produk.php");
+    header("Location: ../../produk.php");
 }
 ?>

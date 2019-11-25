@@ -8,7 +8,16 @@ if(!isset($_SESSION['user'])) {
     header('Location: index.php');
 }
 
-$items = query("SELECT * FROM produk");
+$limit = 2;
+$total = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM produk"));
+$totalPage = ceil($total / $limit);
+if(!isset($_GET['page'])){
+    $_GET['page'] = 1;
+}
+$activePage = $_GET['page'];
+$start = $limit * $activePage - $limit;
+
+$items = query("SELECT * FROM `produk` LIMIT $start, $limit");
 
 if( isset($_GET['keyword']) ) {
     $items = search($_GET['keyword']);
@@ -25,7 +34,7 @@ if( isset($_GET['keyword']) ) {
 
     <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons"> -->
     <!-- Font Awesome -->
-    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"> -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -64,17 +73,57 @@ if( isset($_GET['keyword']) ) {
                                 autocomplete="off">Search</button>
                         </form>
                     </div>
+                    <nav>
+                        <ul class="pagination justify-content-center">
+                            <?php if($_GET['page'] != 1): ?>
+                            <li class="page-item">
+                                <a class="page-link" href="?page=1" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                            <!-- <li class="page-item">
+                                <a class="page-link" href="?page=<?= $activePage - 1?>" aria-label="Previous">
+                                    <span aria-hidden="true">&lt;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li> -->
+                            <?php endif; ?>
+
+                            <?php for($i = 1; $i <= $totalPage; $i++): ?>
+                            <?php if($i == $activePage): ?>
+                            <li class="page-item active"><a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a></li>
+                            <?php else: ?>
+                            <li class="page-item"><a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a></li>
+                            <?php endif; ?>
+                            <?php endfor; ?>
+                            <?php if($_GET['page'] != $totalPage): ?>
+                            <!-- <li class="page-item">
+                                <a class="page-link" href="?page=<?= $activePage + 1 ?>" aria-label="Previous">
+                                    <span aria-hidden="true">&rt;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li> -->
+                            <li class="page-item">
+                                <a class="page-link" href="?page=<?= $totalPage ?>" aria-label="Previous">
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                            <?php endif; ?>
+                        </ul>
+                    </nav>
                     <div class="col-12 p-0">
                         <?php foreach( $items as $item ): ?>
                         <div class="card col-sm-12 col-md-4 col-lg-3 mt-4 mx-1 float-left"
-                            style="width: 18.2rem; height: 510px;">
+                            style="width: 18.2rem;">
                             <a class="btn btn-link p-0 mb-0 shadow-sm" href="detail.php?id=<?= $item['id'] ?>">
                                 <img class="card-img-top" src="img/produk/<?= $item['gambar'] ?>"
                                     alt="<?= $item['nama_produk'] ?>" style="width: 250px; height: 250px;">
                                 <div class="mask rgba-white-light"></div>
                             </a>
                             <div class="card-body">
-                                <h4 class="card-title"><?= $item['nama_produk'] ?></h4>
+                                <h4 class="card-title my-1"><?= $item['nama_produk'] ?></h4>
                                 <ul class="list-unstyled">
                                     <li class="nav-item">Takaran: <?= $item['takaran'] ?></li>
                                     <li class="nav-item">Harga: Rp. <?= $item['harga'] ?></li>
@@ -84,12 +133,14 @@ if( isset($_GET['keyword']) ) {
                                 <form action="system/delete.php" method="get">
                                     <button type="submit" class="btn btn-danger btn-md mx-auto" name="id"
                                         value="<?= $item['id'] ?>"
-                                        onclick="return confirm('Are you sure?')">DELETE</button>
+                                        onclick="return confirm('Are you sure?')"><i class="fa fa-trash"></i></button>
                                 </form>
                                 <?php else: ?>
                                 <form action="system/cart.php" method="post">
-                                    <button type="submit" class="btn btn-success btn-md mx-auto" name="cart"
-                                        value="<?= $item['id'] ?>">+ CART</button>
+                                    <input class="form-control mx-auto" type="number" placeholder="Jumlah" name="jumlah"
+                                    autocomplete="off">
+                                    <button type="submit" class="btn btn-success btn-md mx-auto w-100" name="cart"
+                                        value="<?= $item['id'] ?>"><i class="fa fa-cart-plus"></i></button>
                                 </form>
                                 <?php endif; ?>
                             </div>
